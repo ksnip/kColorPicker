@@ -21,6 +21,8 @@
 #define KCOLORPICKER_KCOLORPICKER_H
 
 #include <QToolButton>
+#include <QColor>
+#include <QList>
 
 #include <kColorPicker/KColorPickerExport.h>
 
@@ -29,6 +31,18 @@ class KCOLORPICKER_EXPORT KColorPicker : public QToolButton
 Q_OBJECT
 public:
     KColorPicker();
+    KColorPicker(KColorPicker &&other) noexcept = default;
+    ~KColorPicker();
+    KColorPicker &operator=(KColorPicker &&other) noexcept = default;
+    void selectColor(const QColor &color);
+
+private:
+    class Impl;
+    QSharedDataPointer<Impl> mImpl;
+
+    QList<QColor> mColors;
+
+    void addDefaultColors();
 };
 
 #endif //KCOLORPICKER_KCOLORPICKER_H

@@ -17,22 +17,23 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <QApplication>
-#include <QVBoxLayout>
-#include <kColorPicker/KColorPicker.h>
+#ifndef KCOLORPICKER_ICONCREATOR_H
+#define KCOLORPICKER_ICONCREATOR_H
 
-int main(int argc, char **argv)
+#include <QIcon>
+#include <QColor>
+#include <QPainter>
+
+class IconCreator
 {
-    QApplication app(argc, argv);
-    auto widget = new QWidget();
-    widget->setFixedWidth(300);
-    widget->setFixedHeight(300);
-    auto layout = new QVBoxLayout();
-    auto colorPicker = new KColorPicker();
-    colorPicker->selectColor(QColor(Qt::red));
-    layout->addWidget(colorPicker);
-    widget->setLayout(layout);
-    widget->show();
+public:
+    explicit IconCreator(QSize iconSize = QSize(25, 25));
+    ~IconCreator() = default;
+    void setIconSize(const QSize& iconSize);
+    QIcon createIcon(const QColor& color) const;
 
-    return app.exec();
-}
+private:
+    QSize mIconSize;
+};
+
+#endif //KCOLORPICKER_ICONCREATOR_H

@@ -17,11 +17,65 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include "kColorPicker/KColorPicker.h"
+#include <kColorPicker/KColorPicker.h>
 
-KColorPicker::KColorPicker()
+#include "IconCreator.h"
+
+class KColorPicker::Impl : public QSharedData
 {
-    setText("CP");
-    setFixedWidth(50);
-    setFixedHeight(50);
+public:
+    explicit Impl();
+    ~Impl();
+    QIcon createIcon(const QColor & color);
+
+private:
+    IconCreator *mIconCreator;
+};
+
+KColorPicker::KColorPicker() : mImpl(new Impl())
+{
+    addDefaultColors();
+}
+
+KColorPicker::~KColorPicker()
+{
+}
+
+void KColorPicker::selectColor(const QColor &color)
+{
+    if(!mColors.contains(color)) {
+        mColors.append(color);
+    }
+    auto icon = mImpl->createIcon(color);
+    setIcon(icon);
+}
+
+void KColorPicker::addDefaultColors()
+{
+    mColors.append(QColor(Qt::red));
+    mColors.append(QColor(Qt::green));
+    mColors.append(QColor(Qt::blue));
+    mColors.append(QColor(Qt::yellow));
+    mColors.append(QColor(Qt::magenta));
+    mColors.append(QColor(Qt::cyan));
+    mColors.append(QColor(Qt::white));
+    mColors.append(QColor(Qt::black));
+}
+
+//
+// Impl
+//
+KColorPicker::Impl::Impl()
+{
+    mIconCreator = new IconCreator();
+}
+
+KColorPicker::Impl::~Impl()
+{
+    delete mIconCreator;
+}
+
+QIcon KColorPicker::Impl::createIcon(const QColor &color)
+{
+    return mIconCreator->createIcon(color);
 }

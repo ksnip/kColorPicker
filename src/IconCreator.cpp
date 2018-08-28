@@ -17,22 +17,26 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <QApplication>
-#include <QVBoxLayout>
-#include <kColorPicker/KColorPicker.h>
+#include "IconCreator.h"
 
-int main(int argc, char **argv)
+IconCreator::IconCreator(QSize iconSize)
 {
-    QApplication app(argc, argv);
-    auto widget = new QWidget();
-    widget->setFixedWidth(300);
-    widget->setFixedHeight(300);
-    auto layout = new QVBoxLayout();
-    auto colorPicker = new KColorPicker();
-    colorPicker->selectColor(QColor(Qt::red));
-    layout->addWidget(colorPicker);
-    widget->setLayout(layout);
-    widget->show();
+    setIconSize(iconSize);
+}
 
-    return app.exec();
+void IconCreator::setIconSize(const QSize &iconSize)
+{
+    mIconSize = iconSize;
+}
+
+QIcon IconCreator::createIcon(const QColor &color) const
+{
+    QPixmap pixmap(mIconSize);
+    pixmap.fill(color);
+    QPainter painter(&pixmap);
+    auto penWidth = painter.pen().width();
+    painter.setPen(QColor(Qt::gray));
+    painter.drawRect(0,0, mIconSize.width() - penWidth, mIconSize.height() - penWidth);
+
+    return QIcon(pixmap);
 }

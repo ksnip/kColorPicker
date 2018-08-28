@@ -20,6 +20,7 @@
 #include <kColorPicker/KColorPicker.h>
 
 #include "IconCreator.h"
+#include "PopupMenu.h"
 
 class KColorPicker::Impl : public QSharedData
 {
@@ -27,9 +28,11 @@ public:
     explicit Impl();
     ~Impl();
     QIcon createIcon(const QColor & color);
+    QMenu* popupMenu(const QList<QColor> &colors);
 
 private:
     IconCreator *mIconCreator;
+    PopupMenu *mPopupMenu;
 };
 
 KColorPicker::KColorPicker() : mImpl(new Impl())
@@ -48,6 +51,7 @@ void KColorPicker::selectColor(const QColor &color)
     }
     auto icon = mImpl->createIcon(color);
     setIcon(icon);
+    setMenu(mImpl->popupMenu(mColors));
 }
 
 void KColorPicker::addDefaultColors()
@@ -68,6 +72,7 @@ void KColorPicker::addDefaultColors()
 KColorPicker::Impl::Impl()
 {
     mIconCreator = new IconCreator();
+    mPopupMenu = nullptr;
 }
 
 KColorPicker::Impl::~Impl()
@@ -78,4 +83,11 @@ KColorPicker::Impl::~Impl()
 QIcon KColorPicker::Impl::createIcon(const QColor &color)
 {
     return mIconCreator->createIcon(color);
+}
+
+QMenu *KColorPicker::Impl::popupMenu(const QList<QColor> &colors)
+{
+    delete mPopupMenu;
+    mPopupMenu = new PopupMenu(colors);
+    return dynamic_cast<QMenu*>(mPopupMenu);
 }

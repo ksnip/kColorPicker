@@ -17,32 +17,18 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef KCOLORPICKER_POPUPMENU_H
-#define KCOLORPICKER_POPUPMENU_H
+#ifndef KCOLORPICKER_ABSTRACTPOPUPMENUBUTTON_H
+#define KCOLORPICKER_ABSTRACTPOPUPMENUBUTTON_H
 
-#include <QMenu>
-#include <QGridLayout>
-#include <QButtonGroup>
+#include <QToolButton>
 
-#include "IconCreator.h"
-#include "buttons/AbstractPopupMenuButton.h"
-
-class PopupMenu : public QMenu
+class AbstractPopupMenuButton : public QToolButton
 {
 public:
-    PopupMenu();
-    ~PopupMenu();
-    void addColor(const QColor& color);
+    explicit AbstractPopupMenuButton(const QIcon &icon);
 
-private:
-    QButtonGroup *mButtonGroup;
-    QGridLayout *mLayout;
-    QHash<AbstractPopupMenuButton *, QColor> mColorToButton;
-
-    void generateGrid();
-    AbstractPopupMenuButton* createButton(const QColor& color);
-    void addColorToGrid(const QColor &color);
-    void clearGrid();
+signals:
+    void colorSelected(const QColor &color) const;
 };
 
-#endif //KCOLORPICKER_POPUPMENU_H
+#endif //KCOLORPICKER_ABSTRACTPOPUPMENUBUTTON_H

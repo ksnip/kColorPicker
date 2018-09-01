@@ -1,7 +1,8 @@
 set(kcolorpicker_SRCS
         ${CMAKE_SOURCE_DIR}/src/KColorPicker.cpp
         ${CMAKE_SOURCE_DIR}/src/PopupMenu.cpp
-        ${CMAKE_SOURCE_DIR}/src/IconCreator.cpp)
+        ${CMAKE_SOURCE_DIR}/src/IconCreator.cpp
+        ${CMAKE_SOURCE_DIR}/src/buttons/AbstractPopupMenuButton.cpp)
 
 add_library(kColorPicker
         ${kcolorpicker_SRCS}

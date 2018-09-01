@@ -19,21 +19,60 @@
 
 #include "PopupMenu.h"
 
-PopupMenu::PopupMenu(const QList<QColor> &colors)
+PopupMenu::PopupMenu()
 {
-    IconCreator iconCreator;
+    mButtonGroup = new QButtonGroup();
+    mLayout = new QGridLayout();
+    setLayout(mLayout);
+}
+
+PopupMenu::~PopupMenu()
+{
+    delete mButtonGroup;
+}
+
+void PopupMenu::addColor(const QColor &color)
+{
+    if(!mColorToButton.values().contains(color)) {
+        addColorToGrid(color);
+    }
+}
+
+void PopupMenu::generateGrid()
+{
     auto row = 0;
     auto column = 0;
-    auto layout = new QGridLayout();
-    for(auto color : colors) {
-        auto button = new QToolButton();
-        auto icon = iconCreator.createIcon(color);
-        button->setIcon(icon);
-        layout->addWidget(button, row, column % 4);
+
+    clearGrid();
+
+    for(auto button : mColorToButton.keys()) {
+        mLayout->addWidget(button, row, column % 4);
         column++;
         if(column % 4 == 0) {
             row++;
         }
     }
-    setLayout(layout);
+}
+
+AbstractPopupMenuButton *PopupMenu::createButton(const QColor &color)
+{
+    IconCreator iconCreator;
+    auto icon = iconCreator.createIcon(color);
+    auto button = new AbstractPopupMenuButton(icon);
+    return button;
+}
+
+void PopupMenu::addColorToGrid(const QColor &color)
+{
+    auto button = createButton(color);
+    mColorToButton[button] = color;
+    mButtonGroup->addButton(button);
+    generateGrid();
+}
+
+void PopupMenu::clearGrid()
+{
+    for(auto button : mColorToButton.keys()) {
+        mLayout->removeWidget(button);
+    }
 }

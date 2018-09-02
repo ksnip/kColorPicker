@@ -31,6 +31,9 @@ public:
 signals:
     void colorSelected(const QColor &color) const;
 
+protected slots:
+    virtual void buttonClicked() = 0;
+
 private:
     QString getStyle() const;
 };

@@ -4,6 +4,7 @@ set(kcolorpicker_SRCS
         ${CMAKE_SOURCE_DIR}/src/IconCreator.cpp
         ${CMAKE_SOURCE_DIR}/src/buttons/AbstractPopupMenuButton.cpp
         ${CMAKE_SOURCE_DIR}/src/buttons/ColorButton.cpp
+        ${CMAKE_SOURCE_DIR}/src/buttons/ColorDialogButton.cpp
         )
 
 add_library(kColorPicker

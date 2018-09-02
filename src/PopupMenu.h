@@ -26,6 +26,7 @@
 
 #include "IconCreator.h"
 #include "buttons/ColorButton.h"
+#include "buttons/ColorDialogButton.h"
 
 class PopupMenu : public QMenu
 {
@@ -43,10 +44,12 @@ private:
     QButtonGroup *mButtonGroup;
     QGridLayout *mLayout;
     QList<ColorButton*> mColorButtons;
+    ColorDialogButton *mColorDialogButton;
 
     void generateGrid();
     ColorButton* createButton(const QColor& color);
-    void addColorToGrid(const QColor &color);
+    void addColorButton(const QColor &color);
+    void addColorDialogButton();
     void clearGrid();
     bool isColorInGrid(const QColor &color);
 

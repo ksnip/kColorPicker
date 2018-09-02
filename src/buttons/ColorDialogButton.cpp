@@ -17,23 +17,15 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef KCOLORPICKER_COLORBUTTON_H
-#define KCOLORPICKER_COLORBUTTON_H
+#include "ColorDialogButton.h"
 
-#include "AbstractPopupMenuButton.h"
-
-class ColorButton : public AbstractPopupMenuButton
+ColorDialogButton::ColorDialogButton(const QIcon &icon) : AbstractPopupMenuButton(icon)
 {
-    Q_OBJECT
-public:
-    ColorButton(const QIcon &icon, const QColor &color);
-    QColor color() const;
 
-protected:
-    virtual void buttonClicked();
+}
 
-private:
-    QColor mColor;
-};
-
-#endif //KCOLORPICKER_COLORBUTTON_H
+void ColorDialogButton::buttonClicked()
+{
+    auto color = QColorDialog::getColor();
+    emit colorSelected(color);
+}

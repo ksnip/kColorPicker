@@ -22,12 +22,14 @@
 ColorButton::ColorButton(const QIcon &icon, const QColor &color) : AbstractPopupMenuButton(icon)
 {
     mColor = color;
-    connect(this, &QToolButton::clicked, [this](){
-        emit colorSelected(mColor);
-    });
 }
 
 QColor ColorButton::color() const
 {
     return mColor;
+}
+
+void ColorButton::buttonClicked()
+{
+    emit colorSelected(mColor);
 }

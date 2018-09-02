@@ -24,6 +24,7 @@ AbstractPopupMenuButton::AbstractPopupMenuButton(const QIcon &icon)
     setIcon(icon);
     setCheckable(true);
     setStyleSheet(getStyle());
+    connect(this, &QToolButton::clicked, this, &AbstractPopupMenuButton::buttonClicked);
 }
 
 QString AbstractPopupMenuButton::getStyle() const

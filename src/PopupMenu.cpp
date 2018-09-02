@@ -25,17 +25,19 @@ PopupMenu::PopupMenu()
     mLayout = new QGridLayout();
     mLayout->setSpacing(0);
     setLayout(mLayout);
+    addColorDialogButton();
 }
 
 PopupMenu::~PopupMenu()
 {
     delete mButtonGroup;
+    delete mColorDialogButton;
 }
 
 void PopupMenu::addColor(const QColor &color)
 {
     if(!isColorInGrid(color)) {
-        addColorToGrid(color);
+        addColorButton(color);
     }
 }
 
@@ -65,6 +67,8 @@ void PopupMenu::generateGrid()
             row++;
         }
     }
+
+    mLayout->addWidget(mColorDialogButton, row, column % 4);
 }
 
 ColorButton *PopupMenu::createButton(const QColor &color)
@@ -75,7 +79,7 @@ ColorButton *PopupMenu::createButton(const QColor &color)
     return button;
 }
 
-void PopupMenu::addColorToGrid(const QColor &color)
+void PopupMenu::addColorButton(const QColor &color)
 {
     auto button = createButton(color);
     mButtonGroup->addButton(button);
@@ -104,5 +108,12 @@ bool PopupMenu::isColorInGrid(const QColor &color)
 void PopupMenu::colorSelected(const QColor &color)
 {
     emit colorChanged(color);
+    addColor(color);
     hide();
+}
+
+void PopupMenu::addColorDialogButton()
+{
+    mColorDialogButton = new ColorDialogButton(QIcon());
+    connect(mColorDialogButton, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
 }

@@ -24,6 +24,7 @@
 
 class AbstractPopupMenuButton : public QToolButton
 {
+    Q_OBJECT
 public:
     explicit AbstractPopupMenuButton(const QIcon &icon);
 

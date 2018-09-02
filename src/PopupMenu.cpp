@@ -33,7 +33,7 @@ PopupMenu::~PopupMenu()
 
 void PopupMenu::addColor(const QColor &color)
 {
-    if(!mColorToButton.values().contains(color)) {
+    if(!isColorInGrid(color)) {
         addColorToGrid(color);
     }
 }
@@ -45,7 +45,7 @@ void PopupMenu::generateGrid()
 
     clearGrid();
 
-    for(auto button : mColorToButton.keys()) {
+    for(auto button : mColorButtons) {
         mLayout->addWidget(button, row, column % 4);
         column++;
         if(column % 4 == 0) {
@@ -54,25 +54,43 @@ void PopupMenu::generateGrid()
     }
 }
 
-AbstractPopupMenuButton *PopupMenu::createButton(const QColor &color)
+ColorButton *PopupMenu::createButton(const QColor &color)
 {
     IconCreator iconCreator;
     auto icon = iconCreator.createIcon(color);
-    auto button = new AbstractPopupMenuButton(icon);
+    auto button = new ColorButton(icon, color);
     return button;
 }
 
 void PopupMenu::addColorToGrid(const QColor &color)
 {
     auto button = createButton(color);
-    mColorToButton[button] = color;
     mButtonGroup->addButton(button);
+    mColorButtons.append(button);
+    connect(button, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
     generateGrid();
 }
 
 void PopupMenu::clearGrid()
 {
-    for(auto button : mColorToButton.keys()) {
+    for(auto button : mColorButtons) {
         mLayout->removeWidget(button);
     }
+}
+
+bool PopupMenu::isColorInGrid(const QColor &color)
+{
+    for(auto button : mColorButtons) {
+        if(button->color() == color) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void PopupMenu::colorSelected(const QColor &color)
+{
+    emit colorChanged(color);
+    hide();
 }

@@ -17,40 +17,17 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef KCOLORPICKER_POPUPMENU_H
-#define KCOLORPICKER_POPUPMENU_H
+#include "ColorButton.h"
 
-#include <QMenu>
-#include <QGridLayout>
-#include <QButtonGroup>
-
-#include "IconCreator.h"
-#include "buttons/ColorButton.h"
-
-class PopupMenu : public QMenu
+ColorButton::ColorButton(const QIcon &icon, const QColor &color) : AbstractPopupMenuButton(icon)
 {
-    Q_OBJECT
-public:
-    PopupMenu();
-    ~PopupMenu();
-    void addColor(const QColor& color);
+    mColor = color;
+    connect(this, &QToolButton::clicked, [this](){
+        emit colorSelected(mColor);
+    });
+}
 
-signals:
-    void colorChanged(const QColor& color) const;
-
-private:
-    QButtonGroup *mButtonGroup;
-    QGridLayout *mLayout;
-    QList<ColorButton*> mColorButtons;
-
-    void generateGrid();
-    ColorButton* createButton(const QColor& color);
-    void addColorToGrid(const QColor &color);
-    void clearGrid();
-    bool isColorInGrid(const QColor &color);
-
-private slots:
-    void colorSelected(const QColor &color);
-};
-
-#endif //KCOLORPICKER_POPUPMENU_H
+QColor ColorButton::color() const
+{
+    return QColor();
+}

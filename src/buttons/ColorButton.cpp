@@ -21,6 +21,7 @@
 
 ColorButton::ColorButton(const QIcon &icon, const QColor &color) : AbstractPopupMenuButton(icon)
 {
+    setCheckable(true);
     mColor = color;
 }
 

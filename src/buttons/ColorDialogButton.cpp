@@ -21,7 +21,7 @@
 
 ColorDialogButton::ColorDialogButton(const QIcon &icon) : AbstractPopupMenuButton(icon)
 {
-
+    setCheckable(false);
 }
 
 void ColorDialogButton::buttonClicked()

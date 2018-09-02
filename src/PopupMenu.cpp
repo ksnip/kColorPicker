@@ -19,6 +19,8 @@
 
 #include "PopupMenu.h"
 
+#include <QFile>
+
 PopupMenu::PopupMenu()
 {
     mButtonGroup = new QButtonGroup();
@@ -114,6 +116,7 @@ void PopupMenu::colorSelected(const QColor &color)
 
 void PopupMenu::addColorDialogButton()
 {
-    mColorDialogButton = new ColorDialogButton(QIcon());
+    auto icon = QIcon(":/icons/ellipsis");
+    mColorDialogButton = new ColorDialogButton(icon);
     connect(mColorDialogButton, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
 }

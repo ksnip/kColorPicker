@@ -7,9 +7,10 @@ set(kcolorpicker_SRCS
         ${CMAKE_SOURCE_DIR}/src/buttons/ColorDialogButton.cpp
         )
 
-add_library(kColorPicker
+add_library(kColorPicker SHARED
         ${kcolorpicker_SRCS}
         ${CMAKE_SOURCE_DIR}/include/kColorPicker/KColorPicker.h
+        ${CMAKE_SOURCE_DIR}/icons/resources.qrc
         )
 
 add_library(kColorPicker::kColorPicker ALIAS kColorPicker)

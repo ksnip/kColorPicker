@@ -23,4 +23,20 @@ AbstractPopupMenuButton::AbstractPopupMenuButton(const QIcon &icon)
 {
     setIcon(icon);
     setCheckable(true);
+    setStyleSheet(getStyle());
+}
+
+QString AbstractPopupMenuButton::getStyle() const
+{
+    return QStringLiteral("QToolButton { "
+                              "border: 0px; "
+                              "margin: 2px;"
+                              "padding-right: -1px; "
+                              "padding-bottom: -1px; }"
+                          "QToolButton:checked { "
+                              "margin: 1px ; "
+                              "border: 1px double black; }"
+                          "QToolButton:hover { "
+                              "border: 1px solid lightblue; }"
+                          );
 }

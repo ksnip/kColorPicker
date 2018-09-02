@@ -30,6 +30,9 @@ public:
 
 signals:
     void colorSelected(const QColor &color) const;
+
+private:
+    QString getStyle() const;
 };
 
 #endif //KCOLORPICKER_ABSTRACTPOPUPMENUBUTTON_H

@@ -19,13 +19,12 @@
 
 #include "PopupMenu.h"
 
-#include <QFile>
-
 PopupMenu::PopupMenu()
 {
     mButtonGroup = new QButtonGroup();
     mLayout = new QGridLayout();
     mLayout->setSpacing(0);
+    mLayout->setMargin(5);
     setLayout(mLayout);
     addColorDialogButton();
 }

@@ -34,6 +34,7 @@ public:
     PopupMenu();
     ~PopupMenu();
     void addColor(const QColor& color);
+    void selectColor(const QColor &color);
 
 signals:
     void colorChanged(const QColor& color) const;

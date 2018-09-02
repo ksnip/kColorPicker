@@ -30,6 +30,7 @@ public:
     QIcon createIcon(const QColor & color);
     PopupMenu* popupMenu();
     void addColor(const QColor &color);
+    void selectColor(const QColor &color);
 
 private:
     IconCreator *mIconCreator;
@@ -41,7 +42,7 @@ KColorPicker::KColorPicker() : mImpl(new Impl())
     setPopupMode(QToolButton::InstantPopup);
     auto popupMenu = mImpl->popupMenu();
     setMenu(popupMenu);
-    connect(popupMenu, &PopupMenu::colorChanged, this, &KColorPicker::selectColor);
+    connect(popupMenu, &PopupMenu::colorChanged, this, &KColorPicker::colorSelected);
     addDefaultColors();
 }
 
@@ -51,8 +52,8 @@ KColorPicker::~KColorPicker()
 
 void KColorPicker::selectColor(const QColor &color)
 {
-    auto icon = mImpl->createIcon(color);
-    setIcon(icon);
+    setColorIcon(color);
+    mImpl->selectColor(color);
 }
 
 void KColorPicker::addDefaultColors()
@@ -65,6 +66,17 @@ void KColorPicker::addDefaultColors()
     mImpl->addColor(QColor(Qt::cyan));
     mImpl->addColor(QColor(Qt::white));
     mImpl->addColor(QColor(Qt::black));
+}
+
+void KColorPicker::setColorIcon(const QColor &color)
+{
+    auto icon = mImpl->createIcon(color);
+    setIcon(icon);
+}
+
+void KColorPicker::colorSelected(const QColor &color)
+{
+    setColorIcon(color);
 }
 
 //
@@ -95,4 +107,9 @@ PopupMenu *KColorPicker::Impl::popupMenu()
 void KColorPicker::Impl::addColor(const QColor &color)
 {
     mPopupMenu->addColor(color);
+}
+
+void KColorPicker::Impl::selectColor(const QColor &color)
+{
+    mPopupMenu->selectColor(color);
 }

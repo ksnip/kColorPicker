@@ -29,5 +29,5 @@ ColorButton::ColorButton(const QIcon &icon, const QColor &color) : AbstractPopup
 
 QColor ColorButton::color() const
 {
-    return QColor();
+    return mColor;
 }

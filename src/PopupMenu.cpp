@@ -39,6 +39,18 @@ void PopupMenu::addColor(const QColor &color)
     }
 }
 
+void PopupMenu::selectColor(const QColor &color)
+{
+    addColor(color);
+
+    for(auto button : mColorButtons) {
+        if(button->color() == color) {
+            button->setChecked(true);
+            return;
+        }
+    }
+}
+
 void PopupMenu::generateGrid()
 {
     auto row = 0;
@@ -86,7 +98,6 @@ bool PopupMenu::isColorInGrid(const QColor &color)
             return true;
         }
     }
-
     return false;
 }
 

@@ -43,6 +43,10 @@ private:
     QSharedDataPointer<Impl> mImpl;
 
     void addDefaultColors();
+    void setColorIcon(const QColor& color);
+
+private slots:
+    void colorSelected(const QColor &color);
 };
 
 #endif //KCOLORPICKER_KCOLORPICKER_H

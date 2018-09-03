@@ -11,8 +11,14 @@ install:
 - sudo apt-get -y install qt59base qt59x11extras qt59tools
 - source /opt/qt*/bin/qt*-env.sh
 
-script:
-- mkdir build
-- cd build
-- cmake ..
-- make
+jobs:
+  include:
+    - stage: build
+      script:
+        - mkdir build
+        - cd build
+        - cmake ..
+        - make
+    - stage: test
+      script:
+        - make test

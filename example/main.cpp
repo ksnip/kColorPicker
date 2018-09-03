@@ -25,8 +25,8 @@ int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
     auto widget = new QWidget();
-    widget->setFixedWidth(300);
-    widget->setFixedHeight(300);
+    widget->setFixedWidth(200);
+    widget->setFixedHeight(200);
     auto layout = new QVBoxLayout();
     auto colorPicker = new KColorPicker();
     colorPicker->selectColor(QColor(Qt::red));

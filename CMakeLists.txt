@@ -10,13 +10,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Widgets)
+find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Widgets Test)
 
 include(GNUInstallDirs)
 include(FeatureSummary)
 
 add_subdirectory(src)
-#add_subdirectory(tests)
+add_subdirectory(tests)
 add_subdirectory(example)
 
 include(CMakePackageConfigHelpers)

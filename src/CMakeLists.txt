@@ -7,6 +7,8 @@ set(kcolorpicker_SRCS
         ${CMAKE_SOURCE_DIR}/src/buttons/ColorDialogButton.cpp
         )
 
+set(kcolorpicker_SRCS ${kcolorpicker_SRCS} PARENT_SCOPE)
+
 add_library(kColorPicker SHARED
         ${kcolorpicker_SRCS}
         ${CMAKE_SOURCE_DIR}/include/kColorPicker/KColorPicker.h

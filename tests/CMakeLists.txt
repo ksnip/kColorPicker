@@ -1,5 +1,3 @@
-enable_testing(true)
-
 set(UnitTests
         buttons/ColorButtonTest.cpp
         )

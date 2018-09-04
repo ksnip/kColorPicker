@@ -1,6 +1,6 @@
 language: cpp
 compiler: gcc
-sudo: require
+sudo: required
 dist: trusty
 
 before_install:
@@ -17,4 +17,4 @@ script:
 - cd build
 - cmake ..
 - make VERBOSE=1
-- make test
+- ctest

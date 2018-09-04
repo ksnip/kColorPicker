@@ -16,7 +16,10 @@ include(GNUInstallDirs)
 include(FeatureSummary)
 
 add_subdirectory(src)
+
+enable_testing()
 add_subdirectory(tests)
+
 add_subdirectory(example)
 
 include(CMakePackageConfigHelpers)

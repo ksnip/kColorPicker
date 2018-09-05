@@ -17,4 +17,4 @@ script:
 - cd build
 - cmake ..
 - make VERBOSE=1
-- make test CTEST_OUTPUT_ON_FAILURE=1 TESTARGS="-platform offscreen"
+- xvfb-run make test CTEST_OUTPUT_ON_FAILURE=1 TESTARGS="-platform minimal"

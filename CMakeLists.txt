@@ -24,17 +24,15 @@ add_subdirectory(example)
 
 include(CMakePackageConfigHelpers)
 
-configure_package_config_file(
-        ${CMAKE_SOURCE_DIR}/cmake/kColorPicker-config.cmake.in
-        ${CMAKE_BINARY_DIR}/cmake/kColorPicker-config.cmake
-        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kColorPicker
-)
+configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/kColorPicker-config.cmake.in
+                              ${CMAKE_BINARY_DIR}/cmake/kColorPicker-config.cmake
+                              INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kColorPicker
+                              )
 
-write_basic_package_version_file(
-        ${CMAKE_BINARY_DIR}/cmake/kColorPicker-config-version.cmake
-        VERSION ${PROJECT_VERSION}
-        COMPATIBILITY AnyNewerVersion
-)
+write_basic_package_version_file(${CMAKE_BINARY_DIR}/cmake/kColorPicker-config-version.cmake
+                                 VERSION ${PROJECT_VERSION}
+                                 COMPATIBILITY AnyNewerVersion
+                                 )
 
 install(FILES
         ${CMAKE_BINARY_DIR}/cmake/kColorPicker-config.cmake
@@ -43,15 +41,13 @@ install(FILES
         )
 
 
-export(
-        EXPORT kColorPicker-targets
-        FILE ${CMAKE_BINARY_DIR}/cmake/kColorPicker-targets.cmake
-        NAMESPACE kColorPicker::
-)
+export(EXPORT kColorPicker-targets
+       FILE ${CMAKE_BINARY_DIR}/cmake/kColorPicker-targets.cmake
+       NAMESPACE kColorPicker::
+       )
 
-install(
-        EXPORT kColorPicker-targets
+install(EXPORT kColorPicker-targets
         FILE kColorPicker-targets.cmake
         NAMESPACE kColorPicker::
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kColorPicker
-)
+        )

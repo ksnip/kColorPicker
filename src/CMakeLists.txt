@@ -28,10 +28,12 @@ target_link_libraries(kColorPicker PUBLIC Qt5::Widgets)
 
 target_compile_definitions(kColorPicker PRIVATE KIMAGEANNOTATOR_LIB)
 
-set_target_properties(kColorPicker PROPERTIES
+set_target_properties(kColorPicker
+        PROPERTIES
         ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
         LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+        VERSION ${PROJECT_VERSION}
         )
 
 install(TARGETS kColorPicker

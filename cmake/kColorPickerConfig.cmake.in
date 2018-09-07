@@ -2,9 +2,6 @@ include(CMakeFindDependencyMacro)
 
 @PACKAGE_INIT@
 
-find_dependency(ECM @KF5_MIN_VERSION@)
-list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
-
 find_dependency(Qt5 @QT_MIN_VERSION@ COMPONENTS Widgets)
 
 if(NOT TARGET kColorPicker::kColorPicker)

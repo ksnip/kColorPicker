@@ -24,19 +24,19 @@ add_subdirectory(example)
 
 include(CMakePackageConfigHelpers)
 
-configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/kColorPicker-config.cmake.in
-                              ${CMAKE_BINARY_DIR}/cmake/kColorPicker-config.cmake
+configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/kColorPickerConfig.cmake.in
+                              ${CMAKE_BINARY_DIR}/cmake/kColorPickerConfig.cmake
                               INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kColorPicker
                               )
 
-write_basic_package_version_file(${CMAKE_BINARY_DIR}/cmake/kColorPicker-config-version.cmake
+write_basic_package_version_file(${CMAKE_BINARY_DIR}/cmake/kColorPickerConfig-version.cmake
                                  VERSION ${PROJECT_VERSION}
                                  COMPATIBILITY AnyNewerVersion
                                  )
 
 install(FILES
-        ${CMAKE_BINARY_DIR}/cmake/kColorPicker-config.cmake
-        ${CMAKE_BINARY_DIR}/cmake/kColorPicker-config-version.cmake
+        ${CMAKE_BINARY_DIR}/cmake/kColorPickerConfig.cmake
+        ${CMAKE_BINARY_DIR}/cmake/kColorPickerConfig-version.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kColorPicker
         )
 

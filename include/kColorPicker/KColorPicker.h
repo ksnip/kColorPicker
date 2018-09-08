@@ -35,6 +35,9 @@ public:
     ~KColorPicker();
     KColorPicker &operator=(KColorPicker &&other) = default;
 
+signals:
+    void colorChanged(const QColor &color) const;
+
 public slots:
     void selectColor(const QColor &color);
 

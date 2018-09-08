@@ -77,6 +77,7 @@ void KColorPicker::setColorIcon(const QColor &color)
 void KColorPicker::colorSelected(const QColor &color)
 {
     setColorIcon(color);
+    emit colorChanged(color);
 }
 
 //

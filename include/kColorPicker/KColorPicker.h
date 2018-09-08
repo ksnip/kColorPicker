@@ -34,12 +34,14 @@ public:
     KColorPicker(KColorPicker &&other) = default;
     ~KColorPicker();
     KColorPicker &operator=(KColorPicker &&other) = default;
+    void setFixedSize(const QSize& size);
+    void setFixedSize(int width, int height);
 
 signals:
     void colorChanged(const QColor &color) const;
 
 public slots:
-    void selectColor(const QColor &color);
+    void setColor(const QColor &color);
 
 private:
     class Impl;
@@ -47,6 +49,7 @@ private:
 
     void addDefaultColors();
     void setColorIcon(const QColor& color);
+    void setColorIconWithSize(const QColor& color, const QSize &size);
 
 private slots:
     void colorSelected(const QColor &color);

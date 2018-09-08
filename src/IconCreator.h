@@ -27,13 +27,9 @@
 class IconCreator
 {
 public:
-    explicit IconCreator(QSize iconSize = QSize(25, 25));
-    ~IconCreator() = default;
-    void setIconSize(const QSize& iconSize);
-    QIcon createIcon(const QColor& color) const;
-
-private:
-    QSize mIconSize;
+    explicit IconCreator() = delete;
+    ~IconCreator() = delete;
+    static QIcon createIcon(const QColor& color, const QSize& size = QSize(25, 25));
 };
 
 #endif //KCOLORPICKER_ICONCREATOR_H

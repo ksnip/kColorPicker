@@ -29,7 +29,7 @@ int main(int argc, char **argv)
     widget->setFixedHeight(200);
     auto layout = new QVBoxLayout();
     auto colorPicker = new KColorPicker();
-    colorPicker->selectColor(QColor(Qt::red));
+    colorPicker->setColor(QColor(Qt::red));
     layout->addWidget(colorPicker);
     widget->setLayout(layout);
     widget->show();

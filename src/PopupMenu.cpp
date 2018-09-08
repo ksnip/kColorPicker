@@ -74,8 +74,7 @@ void PopupMenu::generateGrid()
 
 ColorButton *PopupMenu::createButton(const QColor &color)
 {
-    IconCreator iconCreator;
-    auto icon = iconCreator.createIcon(color);
+    auto icon = IconCreator::createIcon(color);
     auto button = new ColorButton(icon, color);
     return button;
 }

@@ -19,24 +19,14 @@
 
 #include "IconCreator.h"
 
-IconCreator::IconCreator(QSize iconSize)
+QIcon IconCreator::createIcon(const QColor &color, const QSize& size)
 {
-    setIconSize(iconSize);
-}
-
-void IconCreator::setIconSize(const QSize &iconSize)
-{
-    mIconSize = iconSize;
-}
-
-QIcon IconCreator::createIcon(const QColor &color) const
-{
-    QPixmap pixmap(mIconSize);
+    QPixmap pixmap(size);
     pixmap.fill(color);
     QPainter painter(&pixmap);
     auto penWidth = painter.pen().width();
     painter.setPen(QColor(Qt::gray));
-    painter.drawRect(0,0, mIconSize.width() - penWidth, mIconSize.height() - penWidth);
+    painter.drawRect(0,0, size.width() - penWidth, size.height() - penWidth);
 
     return QIcon(pixmap);
 }

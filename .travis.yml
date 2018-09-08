@@ -11,10 +11,18 @@ install:
 - sudo apt-get -y install qt59base
 - source /opt/qt*/bin/qt*-env.sh
 
-
-script:
-- mkdir build
-- cd build
-- cmake ..
-- make VERBOSE=1
-- xvfb-run make test CTEST_OUTPUT_ON_FAILURE=1 TESTARGS="-platform minimal"
+jobs:
+  include:
+  - stage: build
+    script:
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make VERBOSE=1
+  - stage: test
+    script:
+    - mkdir build
+    - cd build
+    - cmake .. -DBUILD_TESTS=ON
+    - make
+    - xvfb-run make test CTEST_OUTPUT_ON_FAILURE=1

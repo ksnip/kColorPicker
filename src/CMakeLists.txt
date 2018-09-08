@@ -12,7 +12,7 @@ set(kcolorpicker_SRCS ${kcolorpicker_SRCS} PARENT_SCOPE)
 add_library(kColorPicker SHARED
         ${kcolorpicker_SRCS}
         ${CMAKE_SOURCE_DIR}/include/kColorPicker/KColorPicker.h
-        ${CMAKE_SOURCE_DIR}/icons/resources.qrc
+        ${CMAKE_SOURCE_DIR}/icons/kColorPicker_resources.qrc
         )
 
 add_library(kColorPicker::kColorPicker ALIAS kColorPicker)

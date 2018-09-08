@@ -114,7 +114,7 @@ void PopupMenu::colorSelected(const QColor &color)
 
 void PopupMenu::addColorDialogButton()
 {
-    auto icon = QIcon(":/icons/ellipsis");
+    auto icon = QIcon(QStringLiteral(":/icons/ellipsis"));
     mColorDialogButton = new ColorDialogButton(icon);
     connect(mColorDialogButton, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
 }

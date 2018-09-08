@@ -47,9 +47,11 @@ private:
     class Impl;
     QSharedDataPointer<Impl> mImpl;
 
+    QSize mIconSize;
+
     void addDefaultColors();
     void setColorIcon(const QColor& color);
-    void setColorIconWithSize(const QColor& color, const QSize &size);
+    void setIconSize(const QSize &size);
 
 private slots:
     void colorSelected(const QColor &color);

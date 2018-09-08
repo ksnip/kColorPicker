@@ -27,8 +27,7 @@ class KColorPicker::Impl : public QSharedData
 public:
     explicit Impl();
     ~Impl();
-    QIcon createIcon(const QColor & color);
-    QIcon createIconWithSize(const QColor & color, const QSize &size);
+    QIcon createIcon(const QColor & color, const QSize &size);
     PopupMenu* popupMenu();
     void addColor(const QColor &color);
     void selectColor(const QColor &color);
@@ -45,6 +44,7 @@ KColorPicker::KColorPicker() : mImpl(new Impl())
     auto popupMenu = mImpl->popupMenu();
     setMenu(popupMenu);
     connect(popupMenu, &PopupMenu::colorChanged, this, &KColorPicker::colorSelected);
+    mIconSize = QSize(25, 25);
     addDefaultColors();
     setColor(QColor(Qt::red));
 }
@@ -57,6 +57,33 @@ void KColorPicker::setColor(const QColor &color)
 {
     setColorIcon(color);
     mImpl->selectColor(color);
+}
+
+void KColorPicker::colorSelected(const QColor &color)
+{
+    setColorIcon(color);
+    emit colorChanged(color);
+}
+
+void KColorPicker::setFixedSize(const QSize &size)
+{
+    QToolButton::setFixedSize(size);
+    setIconSize(size);
+    setColorIcon(mImpl->selectedColor());
+}
+
+void KColorPicker::setFixedSize(int width, int height)
+{
+    QToolButton::setFixedSize(width, height);
+    setIconSize(QSize(width, height));
+    setColorIcon(mImpl->selectedColor());
+}
+
+void KColorPicker::setIconSize(const QSize &size)
+{
+    auto scaleFactor = 0.6;
+    mIconSize = size * scaleFactor;
+    QToolButton::setIconSize(mIconSize);
 }
 
 void KColorPicker::addDefaultColors()
@@ -73,35 +100,8 @@ void KColorPicker::addDefaultColors()
 
 void KColorPicker::setColorIcon(const QColor &color)
 {
-    auto icon = mImpl->createIcon(color);
+    auto icon = mImpl->createIcon(color, mIconSize);
     setIcon(icon);
-}
-
-void KColorPicker::setColorIconWithSize(const QColor &color, const QSize &size)
-{
-    auto scaleFactor = 0.6;
-    auto scaledSize = size * scaleFactor;
-    auto icon = mImpl->createIconWithSize(color, scaledSize);
-    setIconSize(scaledSize);
-    setIcon(icon);
-}
-
-void KColorPicker::colorSelected(const QColor &color)
-{
-    setColorIcon(color);
-    emit colorChanged(color);
-}
-
-void KColorPicker::setFixedSize(const QSize &size)
-{
-    QToolButton::setFixedSize(size);
-    setColorIconWithSize(mImpl->selectedColor(), size);
-}
-
-void KColorPicker::setFixedSize(int width, int height)
-{
-    QToolButton::setFixedSize(width, height);
-    setColorIconWithSize(mImpl->selectedColor(), QSize(width, height));
 }
 
 //
@@ -117,12 +117,7 @@ KColorPicker::Impl::~Impl()
     delete mPopupMenu;
 }
 
-QIcon KColorPicker::Impl::createIcon(const QColor &color)
-{
-    return IconCreator::createIcon(color);
-}
-
-QIcon KColorPicker::Impl::createIconWithSize(const QColor &color, const QSize &size)
+QIcon KColorPicker::Impl::createIcon(const QColor &color, const QSize &size)
 {
     return IconCreator::createIcon(color, size);
 }

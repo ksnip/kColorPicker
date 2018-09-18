@@ -22,18 +22,20 @@
 #include "IconCreator.h"
 #include "PopupMenu.h"
 
+namespace kColorPicker {
+
 class KColorPickerPrivate
 {
 	Q_DISABLE_COPY(KColorPickerPrivate)
 
 	Q_DECLARE_PUBLIC(KColorPicker)
 
-    explicit KColorPickerPrivate(KColorPicker *kColorPicker);
+	explicit KColorPickerPrivate(KColorPicker *kColorPicker);
 
-    KColorPicker *const q_ptr;
+	KColorPicker *const q_ptr;
 	QSize mIconSize;
-    PopupMenu mPopupMenu;
-    QColor mSelectedColor;
+	PopupMenu mPopupMenu;
+	QColor mSelectedColor;
 };
 
 KColorPicker::KColorPicker() : d_ptr(new KColorPickerPrivate(this))
@@ -44,46 +46,46 @@ KColorPicker::~KColorPicker()
 
 void KColorPicker::setColor(const QColor &color)
 {
-    Q_D(KColorPicker);
-    setColorIcon(color);
-    d->mPopupMenu.selectColor(color);
+	Q_D(KColorPicker);
+	setColorIcon(color);
+	d->mPopupMenu.selectColor(color);
 }
 
 void KColorPicker::colorSelected(const QColor &color)
 {
-    setColorIcon(color);
-    emit colorChanged(color);
+	setColorIcon(color);
+	emit colorChanged(color);
 }
 
 void KColorPicker::setFixedSize(const QSize &size)
 {
-    Q_D(const KColorPicker);
-    QToolButton::setFixedSize(size);
-    setIconSize(size);
-    setColorIcon(d->mSelectedColor);
+	Q_D(const KColorPicker);
+	QToolButton::setFixedSize(size);
+	setIconSize(size);
+	setColorIcon(d->mSelectedColor);
 }
 
 void KColorPicker::setFixedSize(int width, int height)
 {
-    Q_D(const KColorPicker);
-    QToolButton::setFixedSize(width, height);
-    setIconSize(QSize(width, height));
-    setColorIcon(d->mSelectedColor);
+	Q_D(const KColorPicker);
+	QToolButton::setFixedSize(width, height);
+	setIconSize(QSize(width, height));
+	setColorIcon(d->mSelectedColor);
 }
 
 void KColorPicker::setIconSize(const QSize &size)
 {
-    Q_D(KColorPicker);
-    auto scaleFactor = 0.6;
-    d->mIconSize = size * scaleFactor;
-    QToolButton::setIconSize(d->mIconSize);
+	Q_D(KColorPicker);
+	auto scaleFactor = 0.6;
+	d->mIconSize = size * scaleFactor;
+	QToolButton::setIconSize(d->mIconSize);
 }
 
 void KColorPicker::setColorIcon(const QColor &color)
 {
-    Q_D(KColorPicker);
-    auto icon = IconCreator::createIcon(color, d->mIconSize);
-    setIcon(icon);
+	Q_D(KColorPicker);
+	auto icon = IconCreator::createIcon(color, d->mIconSize);
+	setIcon(icon);
 }
 
 //
@@ -109,3 +111,5 @@ KColorPickerPrivate::KColorPickerPrivate(KColorPicker *kColorPicker) : q_ptr(kCo
 	mPopupMenu.addColor(QColor(Qt::black));
 
 }
+
+} // namespace kColorPicker

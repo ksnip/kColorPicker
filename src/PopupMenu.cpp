@@ -19,102 +19,106 @@
 
 #include "PopupMenu.h"
 
+namespace kColorPicker {
+
 PopupMenu::PopupMenu()
 {
-    mButtonGroup = new QButtonGroup();
-    mLayout = new QGridLayout();
-    mLayout->setSpacing(0);
-    mLayout->setMargin(5);
-    setLayout(mLayout);
-    addColorDialogButton();
+	mButtonGroup = new QButtonGroup();
+	mLayout = new QGridLayout();
+	mLayout->setSpacing(0);
+	mLayout->setMargin(5);
+	setLayout(mLayout);
+	addColorDialogButton();
 }
 
 PopupMenu::~PopupMenu()
 {
-    delete mButtonGroup;
-    delete mColorDialogButton;
+	delete mButtonGroup;
+	delete mColorDialogButton;
 }
 
 void PopupMenu::addColor(const QColor &color)
 {
-    if(!isColorInGrid(color)) {
-        addColorButton(color);
-    }
+	if (!isColorInGrid(color)) {
+		addColorButton(color);
+	}
 }
 
 void PopupMenu::selectColor(const QColor &color)
 {
-    addColor(color);
+	addColor(color);
 
-    for(auto button : mColorButtons) {
-        if(button->color() == color) {
-            button->setChecked(true);
-            return;
-        }
-    }
+	for (auto button : mColorButtons) {
+		if (button->color() == color) {
+			button->setChecked(true);
+			return;
+		}
+	}
 }
 
 void PopupMenu::generateGrid()
 {
-    auto row = 0;
-    auto column = 0;
+	auto row = 0;
+	auto column = 0;
 
-    clearGrid();
+	clearGrid();
 
-    for(auto button : mColorButtons) {
-        mLayout->addWidget(button, row, column % 4);
-        column++;
-        if(column % 4 == 0) {
-            row++;
-        }
-    }
+	for (auto button : mColorButtons) {
+		mLayout->addWidget(button, row, column % 4);
+		column++;
+		if (column % 4 == 0) {
+			row++;
+		}
+	}
 
-    mLayout->addWidget(mColorDialogButton, row, column % 4);
+	mLayout->addWidget(mColorDialogButton, row, column % 4);
 }
 
 ColorButton *PopupMenu::createButton(const QColor &color)
 {
-    auto icon = IconCreator::createIcon(color);
-    auto button = new ColorButton(icon, color);
-    return button;
+	auto icon = IconCreator::createIcon(color);
+	auto button = new ColorButton(icon, color);
+	return button;
 }
 
 void PopupMenu::addColorButton(const QColor &color)
 {
-    auto button = createButton(color);
-    mButtonGroup->addButton(button);
-    mColorButtons.append(button);
-    connect(button, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
-    generateGrid();
+	auto button = createButton(color);
+	mButtonGroup->addButton(button);
+	mColorButtons.append(button);
+	connect(button, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
+	generateGrid();
 }
 
 void PopupMenu::clearGrid()
 {
-    for(auto button : mColorButtons) {
-        mLayout->removeWidget(button);
-    }
+	for (auto button : mColorButtons) {
+		mLayout->removeWidget(button);
+	}
 }
 
 bool PopupMenu::isColorInGrid(const QColor &color)
 {
-    for(auto button : mColorButtons) {
-        if(button->color() == color) {
-            return true;
-        }
-    }
-    return false;
+	for (auto button : mColorButtons) {
+		if (button->color() == color) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void PopupMenu::colorSelected(const QColor &color)
 {
-    emit colorChanged(color);
-    addColor(color);
-    hide();
+	emit colorChanged(color);
+	addColor(color);
+	hide();
 }
 
 void PopupMenu::addColorDialogButton()
 {
-    auto icon = QIcon(QStringLiteral(":/icons/ellipsis"));
-    mColorDialogButton = new ColorDialogButton(icon);
-    connect(mColorDialogButton, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
+	auto icon = QIcon(QStringLiteral(":/icons/ellipsis"));
+	mColorDialogButton = new ColorDialogButton(icon);
+	connect(mColorDialogButton, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
 }
+
+} // namespace kColorPicker

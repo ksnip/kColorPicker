@@ -22,18 +22,22 @@
 
 #include "AbstractPopupMenuButton.h"
 
+namespace kColorPicker {
+
 class ColorButton : public AbstractPopupMenuButton
 {
-    Q_OBJECT
+Q_OBJECT
 public:
-    ColorButton(const QIcon &icon, const QColor &color);
-    QColor color() const;
+	ColorButton(const QIcon &icon, const QColor &color);
+	QColor color() const;
 
 protected:
-    virtual void buttonClicked();
+	virtual void buttonClicked();
 
 private:
-    QColor mColor;
+	QColor mColor;
 };
+
+} // namespace kColorPicker
 
 #endif //KCOLORPICKER_COLORBUTTON_H

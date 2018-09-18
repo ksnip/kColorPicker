@@ -26,6 +26,8 @@
 
 #include <kColorPicker/KColorPickerExport.h>
 
+namespace kColorPicker {
+
 class KColorPickerPrivate;
 
 class KCOLORPICKER_EXPORT KColorPicker : public QToolButton
@@ -33,25 +35,27 @@ class KCOLORPICKER_EXPORT KColorPicker : public QToolButton
 Q_OBJECT
 
 	Q_DECLARE_PRIVATE(KColorPicker)
+
 public:
-    explicit KColorPicker();
-    ~KColorPicker();
-    void setFixedSize(const QSize& size);
-    void setFixedSize(int width, int height);
+	explicit KColorPicker();
+	~KColorPicker();
+	void setFixedSize(const QSize &size);
+	void setFixedSize(int width, int height);
 
 public slots:
 	void setColor(const QColor &color);
 
 signals:
-    void colorChanged(const QColor &color) const;
+	void colorChanged(const QColor &color) const;
 
 private:
 	QScopedPointer<KColorPickerPrivate> const d_ptr;
 
 private slots:
-	void setColorIcon(const QColor& color);
+	void setColorIcon(const QColor &color);
 	void setIconSize(const QSize &size);
-    void colorSelected(const QColor &color);
+	void colorSelected(const QColor &color);
 };
 
+}
 #endif //KCOLORPICKER_KCOLORPICKER_H

@@ -19,6 +19,8 @@
 
 #include "ColorDialogButton.h"
 
+namespace kColorPicker {
+
 ColorDialogButton::ColorDialogButton(const QIcon &icon) : AbstractPopupMenuButton(icon)
 {
     setCheckable(false);
@@ -29,3 +31,5 @@ void ColorDialogButton::buttonClicked()
     auto color = QColorDialog::getColor();
     emit colorSelected(color);
 }
+
+} // namespace kColorPicker

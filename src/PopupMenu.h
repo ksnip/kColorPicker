@@ -28,33 +28,36 @@
 #include "buttons/ColorButton.h"
 #include "buttons/ColorDialogButton.h"
 
+namespace kColorPicker {
+
 class PopupMenu : public QMenu
 {
-    Q_OBJECT
+Q_OBJECT
 public:
-    PopupMenu();
-    ~PopupMenu();
-    void addColor(const QColor& color);
-    void selectColor(const QColor &color);
+	PopupMenu();
+	~PopupMenu();
+	void addColor(const QColor &color);
+	void selectColor(const QColor &color);
 
 signals:
-    void colorChanged(const QColor& color) const;
+	void colorChanged(const QColor &color) const;
 
 private:
-    QButtonGroup *mButtonGroup;
-    QGridLayout *mLayout;
-    QList<ColorButton*> mColorButtons;
-    ColorDialogButton *mColorDialogButton;
+	QButtonGroup *mButtonGroup;
+	QGridLayout *mLayout;
+	QList<ColorButton *> mColorButtons;
+	ColorDialogButton *mColorDialogButton;
 
-    void generateGrid();
-    ColorButton* createButton(const QColor& color);
-    void addColorButton(const QColor &color);
-    void addColorDialogButton();
-    void clearGrid();
-    bool isColorInGrid(const QColor &color);
+	void generateGrid();
+	ColorButton *createButton(const QColor &color);
+	void addColorButton(const QColor &color);
+	void addColorDialogButton();
+	void clearGrid();
+	bool isColorInGrid(const QColor &color);
 
 private slots:
-    void colorSelected(const QColor &color);
+	void colorSelected(const QColor &color);
 };
 
+} // namespace kColorPicker
 #endif //KCOLORPICKER_POPUPMENU_H

@@ -21,6 +21,8 @@
 #include <QVBoxLayout>
 #include <kColorPicker/KColorPicker.h>
 
+using kColorPicker::KColorPicker;
+
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);

@@ -22,20 +22,23 @@
 
 #include <QToolButton>
 
+namespace kColorPicker {
+
 class AbstractPopupMenuButton : public QToolButton
 {
-    Q_OBJECT
+Q_OBJECT
 public:
-    explicit AbstractPopupMenuButton(const QIcon &icon);
+	explicit AbstractPopupMenuButton(const QIcon &icon);
 
 signals:
-    void colorSelected(const QColor &color) const;
+	void colorSelected(const QColor &color) const;
 
 protected slots:
-    virtual void buttonClicked() = 0;
+	virtual void buttonClicked() = 0;
 
 private:
-    QString getStyle() const;
+	QString getStyle() const;
 };
 
+} // namespace kColorPicker
 #endif //KCOLORPICKER_ABSTRACTPOPUPMENUBUTTON_H

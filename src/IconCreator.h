@@ -24,12 +24,16 @@
 #include <QColor>
 #include <QPainter>
 
+namespace kColorPicker {
+
 class IconCreator
 {
 public:
-    explicit IconCreator() = delete;
-    ~IconCreator() = delete;
-    static QIcon createIcon(const QColor& color, const QSize& size = QSize(25, 25));
+	explicit IconCreator() = delete;
+	~IconCreator() = delete;
+	static QIcon createIcon(const QColor &color, const QSize &size = QSize(25, 25));
 };
+
+} // namespace kColorPicker
 
 #endif //KCOLORPICKER_ICONCREATOR_H

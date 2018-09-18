@@ -19,14 +19,18 @@
 
 #include "IconCreator.h"
 
-QIcon IconCreator::createIcon(const QColor &color, const QSize& size)
+namespace kColorPicker {
+
+QIcon IconCreator::createIcon(const QColor &color, const QSize &size)
 {
     QPixmap pixmap(size);
     pixmap.fill(color);
     QPainter painter(&pixmap);
     auto penWidth = painter.pen().width();
     painter.setPen(QColor(Qt::gray));
-    painter.drawRect(0,0, size.width() - penWidth, size.height() - penWidth);
+    painter.drawRect(0, 0, size.width() - penWidth, size.height() - penWidth);
 
     return QIcon(pixmap);
 }
+
+} // namespace kColorPicker

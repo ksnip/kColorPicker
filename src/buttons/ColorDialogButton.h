@@ -24,15 +24,19 @@
 
 #include "AbstractPopupMenuButton.h"
 
+namespace kColorPicker {
+
 class ColorDialogButton : public AbstractPopupMenuButton
 {
 Q_OBJECT
 public:
-    ColorDialogButton(const QIcon &icon);
+	ColorDialogButton(const QIcon &icon);
 
 protected:
-    virtual void buttonClicked();
+	virtual void buttonClicked();
 
 };
+
+} // namespace kColorPicker
 
 #endif //KCOLORPICKER_COLORDIALOGBUTTON_H

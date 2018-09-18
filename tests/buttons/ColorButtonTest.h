@@ -24,6 +24,8 @@
 
 #include "../../src/buttons/ColorButton.h"
 
+using kColorPicker::ColorButton;
+
 class ColorButtonTest : public QObject
 {
 Q_OBJECT

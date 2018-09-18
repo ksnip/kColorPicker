@@ -22,41 +22,31 @@
 #include "IconCreator.h"
 #include "PopupMenu.h"
 
-class KColorPicker::Impl : public QSharedData
+class KColorPickerPrivate
 {
-public:
-    explicit Impl();
-    ~Impl();
-    QIcon createIcon(const QColor & color, const QSize &size);
-    PopupMenu* popupMenu();
-    void addColor(const QColor &color);
-    void selectColor(const QColor &color);
-    QColor selectedColor() const;
+	Q_DISABLE_COPY(KColorPickerPrivate)
 
-private:
-    PopupMenu *mPopupMenu;
+	Q_DECLARE_PUBLIC(KColorPicker)
+
+    explicit KColorPickerPrivate(KColorPicker *kColorPicker);
+
+    KColorPicker *const q_ptr;
+	QSize mIconSize;
+    PopupMenu mPopupMenu;
     QColor mSelectedColor;
 };
 
-KColorPicker::KColorPicker() : mImpl(new Impl())
-{
-    setPopupMode(QToolButton::InstantPopup);
-    auto popupMenu = mImpl->popupMenu();
-    setMenu(popupMenu);
-    connect(popupMenu, &PopupMenu::colorChanged, this, &KColorPicker::colorSelected);
-    mIconSize = QSize(25, 25);
-    addDefaultColors();
-    setColor(QColor(Qt::red));
-}
+KColorPicker::KColorPicker() : d_ptr(new KColorPickerPrivate(this))
+{}
 
 KColorPicker::~KColorPicker()
-{
-}
+{}
 
 void KColorPicker::setColor(const QColor &color)
 {
+    Q_D(KColorPicker);
     setColorIcon(color);
-    mImpl->selectColor(color);
+    d->mPopupMenu.selectColor(color);
 }
 
 void KColorPicker::colorSelected(const QColor &color)
@@ -67,78 +57,55 @@ void KColorPicker::colorSelected(const QColor &color)
 
 void KColorPicker::setFixedSize(const QSize &size)
 {
+    Q_D(const KColorPicker);
     QToolButton::setFixedSize(size);
     setIconSize(size);
-    setColorIcon(mImpl->selectedColor());
+    setColorIcon(d->mSelectedColor);
 }
 
 void KColorPicker::setFixedSize(int width, int height)
 {
+    Q_D(const KColorPicker);
     QToolButton::setFixedSize(width, height);
     setIconSize(QSize(width, height));
-    setColorIcon(mImpl->selectedColor());
+    setColorIcon(d->mSelectedColor);
 }
 
 void KColorPicker::setIconSize(const QSize &size)
 {
+    Q_D(KColorPicker);
     auto scaleFactor = 0.6;
-    mIconSize = size * scaleFactor;
-    QToolButton::setIconSize(mIconSize);
-}
-
-void KColorPicker::addDefaultColors()
-{
-    mImpl->addColor(QColor(Qt::red));
-    mImpl->addColor(QColor(Qt::green));
-    mImpl->addColor(QColor(Qt::blue));
-    mImpl->addColor(QColor(Qt::yellow));
-    mImpl->addColor(QColor(Qt::magenta));
-    mImpl->addColor(QColor(Qt::cyan));
-    mImpl->addColor(QColor(Qt::white));
-    mImpl->addColor(QColor(Qt::black));
+    d->mIconSize = size * scaleFactor;
+    QToolButton::setIconSize(d->mIconSize);
 }
 
 void KColorPicker::setColorIcon(const QColor &color)
 {
-    auto icon = mImpl->createIcon(color, mIconSize);
+    Q_D(KColorPicker);
+    auto icon = IconCreator::createIcon(color, d->mIconSize);
     setIcon(icon);
 }
 
 //
-// Impl
+// KColorPickerPrivate
 //
-KColorPicker::Impl::Impl()
-{
-    mPopupMenu = new PopupMenu();;
-}
 
-KColorPicker::Impl::~Impl()
+KColorPickerPrivate::KColorPickerPrivate(KColorPicker *kColorPicker) : q_ptr(kColorPicker)
 {
-    delete mPopupMenu;
-}
+	mIconSize = QSize(25, 25);
+	kColorPicker->setPopupMode(QToolButton::InstantPopup);
+	kColorPicker->setMenu(&mPopupMenu);
+	kColorPicker->connect(&mPopupMenu, &PopupMenu::colorChanged, kColorPicker, &KColorPicker::colorSelected);
 
-QIcon KColorPicker::Impl::createIcon(const QColor &color, const QSize &size)
-{
-    return IconCreator::createIcon(color, size);
-}
 
-PopupMenu *KColorPicker::Impl::popupMenu()
-{
-    return mPopupMenu;
-}
+	// Default Colors
+	mPopupMenu.addColor(QColor(Qt::red));
+	mPopupMenu.addColor(QColor(Qt::green));
+	mPopupMenu.addColor(QColor(Qt::blue));
+	mPopupMenu.addColor(QColor(Qt::yellow));
+	mPopupMenu.addColor(QColor(Qt::magenta));
+	mPopupMenu.addColor(QColor(Qt::cyan));
+	mPopupMenu.addColor(QColor(Qt::white));
+	mPopupMenu.addColor(QColor(Qt::black));
 
-void KColorPicker::Impl::addColor(const QColor &color)
-{
-    mPopupMenu->addColor(color);
-    mSelectedColor = color;
-}
-
-void KColorPicker::Impl::selectColor(const QColor &color)
-{
-    mPopupMenu->selectColor(color);
-}
-
-QColor KColorPicker::Impl::selectedColor() const
-{
-    return mSelectedColor;
 }

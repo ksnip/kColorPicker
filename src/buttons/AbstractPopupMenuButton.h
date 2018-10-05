@@ -21,6 +21,9 @@
 #define KCOLORPICKER_ABSTRACTPOPUPMENUBUTTON_H
 
 #include <QToolButton>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QStyleOption>
 
 namespace kColorPicker {
 
@@ -34,11 +37,10 @@ signals:
 	void colorSelected(const QColor &color) const;
 
 protected slots:
+	virtual void paintEvent(QPaintEvent *event);
 	virtual void buttonClicked() = 0;
-
-private:
-	QString getStyle() const;
 };
 
 } // namespace kColorPicker
+
 #endif //KCOLORPICKER_ABSTRACTPOPUPMENUBUTTON_H

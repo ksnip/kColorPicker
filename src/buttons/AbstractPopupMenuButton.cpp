@@ -24,23 +24,30 @@ namespace kColorPicker {
 AbstractPopupMenuButton::AbstractPopupMenuButton(const QIcon &icon)
 {
     setIcon(icon);
-    setStyleSheet(getStyle());
+	setFixedSize(iconSize() + QSize(4,4));
     connect(this, &QToolButton::clicked, this, &AbstractPopupMenuButton::buttonClicked);
 }
 
-QString AbstractPopupMenuButton::getStyle() const
+void AbstractPopupMenuButton::paintEvent(QPaintEvent *event)
 {
-    return QStringLiteral("QToolButton { "
-                          "border: 0px; "
-                          "margin: 2px;"
-                          "padding-right: -1px; "
-                          "padding-bottom: -1px; }"
-                          "QToolButton:checked { "
-                          "margin: 1px ; "
-                          "border: 1px double black; }"
-                          "QToolButton:hover { "
-                          "border: 1px solid lightblue; }"
-    );
+	QPainter painter(this);
+	QStyleOption styleOption;
+	styleOption.initFrom(this);
+	auto buttonRect = event->rect();
+	auto selectionRect = QRect(buttonRect.topLeft().x(), buttonRect.topLeft().y(), iconSize().width() + 3, iconSize().height() + 3);
+	auto hoverRect = QRect(buttonRect.topLeft().x() + 1, buttonRect.topLeft().y() + 1, iconSize().width() + 1, iconSize().height() + 1);
+
+	painter.drawPixmap(buttonRect.topLeft() + QPointF(2, 2), icon().pixmap(iconSize()));
+
+	if(isChecked()) {
+		painter.drawRect(selectionRect);
+	}
+	
+	if(styleOption.state & QStyle::State_MouseOver)
+	{
+		painter.setPen(QColor(QStringLiteral("#add8e6")));
+		painter.drawRect(hoverRect);
+	}
 }
 
 } // namespace kColorPicker

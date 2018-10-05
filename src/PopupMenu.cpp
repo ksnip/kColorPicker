@@ -110,7 +110,7 @@ bool PopupMenu::isColorInGrid(const QColor &color)
 void PopupMenu::colorSelected(const QColor &color)
 {
 	emit colorChanged(color);
-	addColor(color);
+	selectColor(color);
 	hide();
 }
 

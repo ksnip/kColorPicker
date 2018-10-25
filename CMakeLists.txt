@@ -27,25 +27,63 @@ endif (BUILD_TESTS)
 
 include(CMakePackageConfigHelpers)
 
-configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/kColorPickerConfig.cmake.in
-                              ${CMAKE_BINARY_DIR}/cmake/kColorPickerConfig.cmake
+add_library(kColorPicker SHARED
+			${KCOLORPICKER_SRCS}
+			${CMAKE_CURRENT_SOURCE_DIR}/include/kColorPicker/KColorPicker.h
+			${CMAKE_CURRENT_SOURCE_DIR}/icons/kColorPicker_icons.qrc
+			)
+
+add_library(kColorPicker::kColorPicker ALIAS kColorPicker)
+
+target_include_directories(kColorPicker
+						   PUBLIC
+						   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+						   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
+						   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+						   )
+
+target_link_libraries(kColorPicker PUBLIC Qt5::Widgets)
+
+target_compile_definitions(kColorPicker PRIVATE KIMAGEANNOTATOR_LIB)
+
+set_target_properties(kColorPicker
+					  PROPERTIES
+					  ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib
+					  LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib
+					  RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin
+					  SOVERSION ${PROJECT_VERSION}
+					  )
+
+install(TARGETS kColorPicker
+		EXPORT kColorPicker-targets
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+		)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/kColorPicker
+		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+		)
+
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/kColorPickerConfig.cmake.in
+                              ${CMAKE_CURRENT_BINARY_DIR}/cmake/kColorPickerConfig.cmake
                               INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kColorPicker
                               )
 
-write_basic_package_version_file(${CMAKE_BINARY_DIR}/cmake/kColorPickerConfig-version.cmake
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/cmake/kColorPickerConfig-version.cmake
                                  VERSION ${PROJECT_VERSION}
                                  COMPATIBILITY AnyNewerVersion
                                  )
 
 install(FILES
-        ${CMAKE_BINARY_DIR}/cmake/kColorPickerConfig.cmake
-        ${CMAKE_BINARY_DIR}/cmake/kColorPickerConfig-version.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/cmake/kColorPickerConfig.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/cmake/kColorPickerConfig-version.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kColorPicker
         )
 
 
 export(EXPORT kColorPicker-targets
-       FILE ${CMAKE_BINARY_DIR}/cmake/kColorPicker-targets.cmake
+       FILE ${CMAKE_CURRENT_BINARY_DIR}/cmake/kColorPicker-targets.cmake
        NAMESPACE kColorPicker::
        )
 

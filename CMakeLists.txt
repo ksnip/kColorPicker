@@ -27,7 +27,7 @@ endif (BUILD_TESTS)
 
 include(CMakePackageConfigHelpers)
 
-add_library(kColorPicker SHARED
+add_library(kColorPicker
 			${KCOLORPICKER_SRCS}
 			${CMAKE_CURRENT_SOURCE_DIR}/include/kColorPicker/KColorPicker.h
 			${CMAKE_CURRENT_SOURCE_DIR}/icons/kColorPicker_icons.qrc

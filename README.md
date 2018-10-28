@@ -3,7 +3,7 @@ QToolButton with color popup menu with lets you select a color. The popup featue
 
 Version 0.0.1
 
-![kImageAnnotator](https://i.imgur.com/VkhUvFa.png "kColorPicker")
+![kColorPicker](https://i.imgur.com/VkhUvFa.png "kColorPicker")
 
 ### Building from source
 1. Get latest release from GitHub by cloning the repo:  
@@ -19,7 +19,13 @@ Version 0.0.1
 6. Run the example application:  
     `$ ./example/kColorPicker-example`  
 
-### Integrate as shared library
+
+### Shared vs Static
+You can either build the project as shared library by providing the flag `-DBUILD_SHARED_LIBS=ON`
+to cmake or `-DBUILD_SHARED_LIBS=OFF` to build as static library
+
+
+### Integrate library in project
 
 1. Let cmake find the shared library, optionally with version  
     `set(KCOLORPICKER_MIN_VERSION "0.x.x")`  

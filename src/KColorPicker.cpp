@@ -22,6 +22,11 @@
 #include "IconCreator.h"
 #include "PopupMenu.h"
 
+inline void initResource()
+{
+	Q_INIT_RESOURCE(kColorPicker_icons);
+}
+
 namespace kColorPicker {
 
 class KColorPickerPrivate
@@ -94,11 +99,12 @@ void KColorPicker::setColorIcon(const QColor &color)
 
 KColorPickerPrivate::KColorPickerPrivate(KColorPicker *kColorPicker) : q_ptr(kColorPicker)
 {
+	initResource();
+
 	mIconSize = QSize(25, 25);
 	kColorPicker->setPopupMode(QToolButton::InstantPopup);
 	kColorPicker->setMenu(&mPopupMenu);
 	kColorPicker->connect(&mPopupMenu, &PopupMenu::colorChanged, kColorPicker, &KColorPicker::colorSelected);
-
 
 	// Default Colors
 	mPopupMenu.addColor(QColor(Qt::red));

@@ -11,6 +11,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 option(BUILD_TESTS "Build Unit Tests" OFF)
+option(BUILD_EXAMPLE "Build Example Application" ON)
 
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Widgets Test)
 
@@ -18,7 +19,10 @@ include(GNUInstallDirs)
 include(FeatureSummary)
 
 add_subdirectory(src)
-add_subdirectory(example)
+
+if (BUILD_EXAMPLE)
+    add_subdirectory(example)
+endif (BUILD_EXAMPLE)
 
 if (BUILD_TESTS)
     enable_testing()

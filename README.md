@@ -22,7 +22,8 @@ Version 0.0.1
 
 ### Shared vs Static
 You can either build the project as shared library by providing the flag `-DBUILD_SHARED_LIBS=ON`
-to cmake or `-DBUILD_SHARED_LIBS=OFF` to build as static library
+to cmake or `-DBUILD_SHARED_LIBS=OFF` to build as static library. On Windows we currently can
+only build as static library.
 
 
 ### Integrate library in project

@@ -22,10 +22,14 @@
 
 #include <QtCore/qglobal.h>
 
-#if defined(KCOLORPICKER_LIB)
-#   define KCOLORPICKER_EXPORT Q_DECL_EXPORT
-#else
-#   define KCOLORPICKER_EXPORT Q_DECL_IMPORT
+#if defined(_WIN32)
+	#   define KCOLORPICKER_EXPORT
+#else 
+	#if defined(KCOLORPICKER_LIB)
+	#   define KCOLORPICKER_EXPORT Q_DECL_EXPORT
+	#else
+	#   define KCOLORPICKER_EXPORT Q_DECL_IMPORT
+	#endif
 #endif
 
 #endif //KCOLORPICKER_KCOLORPICKEREXPORT_H

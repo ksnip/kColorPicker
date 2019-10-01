@@ -30,10 +30,10 @@ class ColorDialogButton : public AbstractPopupMenuButton
 {
 Q_OBJECT
 public:
-	ColorDialogButton(const QIcon &icon);
+	explicit ColorDialogButton(const QIcon &icon);
 
 protected:
-	virtual void buttonClicked();
+	void buttonClicked() override;
 
 };
 

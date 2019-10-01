@@ -37,7 +37,7 @@ signals:
 	void colorSelected(const QColor &color) const;
 
 protected slots:
-	virtual void paintEvent(QPaintEvent *event);
+	void paintEvent(QPaintEvent *event) override;
 	virtual void buttonClicked() = 0;
 };
 

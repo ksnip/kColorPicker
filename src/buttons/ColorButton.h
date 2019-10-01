@@ -32,7 +32,7 @@ public:
 	QColor color() const;
 
 protected:
-	virtual void buttonClicked();
+	void buttonClicked() override;
 
 private:
 	QColor mColor;

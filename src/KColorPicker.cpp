@@ -52,12 +52,15 @@ KColorPicker::~KColorPicker()
 void KColorPicker::setColor(const QColor &color)
 {
 	Q_D(KColorPicker);
+	d->mSelectedColor = color;
 	setColorIcon(color);
 	d->mPopupMenu.selectColor(color);
 }
 
 void KColorPicker::colorSelected(const QColor &color)
 {
+	Q_D(KColorPicker);
+	d->mSelectedColor = color;
 	setColorIcon(color);
 	emit colorChanged(color);
 }
@@ -76,6 +79,12 @@ void KColorPicker::setFixedSize(int width, int height)
 	QToolButton::setFixedSize(width, height);
 	setIconSize(QSize(width, height));
 	setColorIcon(d->mSelectedColor);
+}
+
+QColor KColorPicker::color() const
+{
+	Q_D(const KColorPicker);
+	return d->mSelectedColor;
 }
 
 void KColorPicker::setIconSize(const QSize &size)

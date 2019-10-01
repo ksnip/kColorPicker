@@ -38,9 +38,10 @@ Q_OBJECT
 
 public:
 	explicit KColorPicker();
-	~KColorPicker();
+	~KColorPicker() override;
 	void setFixedSize(const QSize &size);
 	void setFixedSize(int width, int height);
+	QColor color() const;
 
 public slots:
 	void setColor(const QColor &color);

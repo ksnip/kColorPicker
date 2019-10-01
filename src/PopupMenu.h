@@ -35,7 +35,7 @@ class PopupMenu : public QMenu
 Q_OBJECT
 public:
 	PopupMenu();
-	~PopupMenu();
+	~PopupMenu() override;
 	void addColor(const QColor &color);
 	void selectColor(const QColor &color);
 

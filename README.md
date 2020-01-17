@@ -7,7 +7,7 @@ Version 0.1.0
 
 ### Building from source
 1. Get latest release from GitHub by cloning the repo:  
-    `$ git clone https://github.com/DamirPorobic/kColorPicker`
+    `$ git clone https://github.com/ksnip/kColorPicker`
 2. Change to repo directory:  
     `$ cd kColorPicker`  
 3. Make new build directory and enter it:  

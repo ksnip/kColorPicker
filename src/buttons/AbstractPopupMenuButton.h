@@ -39,6 +39,7 @@ signals:
 protected slots:
 	void paintEvent(QPaintEvent *event) override;
 	virtual void buttonClicked() = 0;
+	QSize getSizeBasedOnIcon() const;
 };
 
 } // namespace kColorPicker

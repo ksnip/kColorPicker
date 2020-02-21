@@ -23,9 +23,15 @@ namespace kColorPicker {
 
 AbstractPopupMenuButton::AbstractPopupMenuButton(const QIcon &icon)
 {
-    setIcon(icon);
-	setFixedSize(iconSize() + QSize(4,4));
+	setIcon(icon);
+	setFixedSize(getSizeBasedOnIcon());
     connect(this, &QToolButton::clicked, this, &AbstractPopupMenuButton::buttonClicked);
+}
+QSize AbstractPopupMenuButton::getSizeBasedOnIcon() const
+{
+	auto xScaleFactor = logicalDpiX() / 96.0;
+	auto yScaleFactor = logicalDpiY() / 96.0;
+	return iconSize() + QSize(static_cast<int>(4 * xScaleFactor), static_cast<int>(4 * yScaleFactor));
 }
 
 void AbstractPopupMenuButton::paintEvent(QPaintEvent *event)

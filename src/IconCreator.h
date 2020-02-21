@@ -31,7 +31,7 @@ class IconCreator
 public:
 	explicit IconCreator() = delete;
 	~IconCreator() = delete;
-	static QIcon createIcon(const QColor &color, const QSize &size = QSize(25, 25));
+	static QIcon createIcon(const QColor &color, const QSize &size);
 };
 
 } // namespace kColorPicker

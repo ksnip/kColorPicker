@@ -27,6 +27,7 @@ AbstractPopupMenuButton::AbstractPopupMenuButton(const QIcon &icon)
 	setFixedSize(getSizeBasedOnIcon());
     connect(this, &QToolButton::clicked, this, &AbstractPopupMenuButton::buttonClicked);
 }
+
 QSize AbstractPopupMenuButton::getSizeBasedOnIcon() const
 {
 	auto xScaleFactor = logicalDpiX() / 96.0;
@@ -48,7 +49,7 @@ void AbstractPopupMenuButton::paintEvent(QPaintEvent *event)
 	if(isChecked()) {
 		painter.drawRect(selectionRect);
 	}
-	
+
 	if(styleOption.state & QStyle::State_MouseOver)
 	{
 		painter.setPen(QColor(QStringLiteral("#add8e6")));

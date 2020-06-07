@@ -100,6 +100,7 @@ void KColorPicker::setColorIcon(const QColor &color)
 	Q_D(KColorPicker);
 	auto icon = IconCreator::createIcon(color, d->mIconSize);
 	setIcon(icon);
+	setToolTip(color.name());
 }
 
 //

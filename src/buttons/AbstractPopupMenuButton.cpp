@@ -21,18 +21,12 @@
 
 namespace kColorPicker {
 
-AbstractPopupMenuButton::AbstractPopupMenuButton(const QIcon &icon)
+AbstractPopupMenuButton::AbstractPopupMenuButton(const QIcon &icon) :
+	mHoverColor(QColor(QStringLiteral("#add8e6")))
 {
 	setIcon(icon);
-	setFixedSize(getSizeBasedOnIcon());
+	setFixedSize(iconSize() + QSize(8, 8));
     connect(this, &QToolButton::clicked, this, &AbstractPopupMenuButton::buttonClicked);
-}
-
-QSize AbstractPopupMenuButton::getSizeBasedOnIcon() const
-{
-	auto xScaleFactor = logicalDpiX() / 96.0;
-	auto yScaleFactor = logicalDpiY() / 96.0;
-	return iconSize() + QSize(static_cast<int>(4 * xScaleFactor), static_cast<int>(4 * yScaleFactor));
 }
 
 void AbstractPopupMenuButton::paintEvent(QPaintEvent *event)
@@ -40,20 +34,25 @@ void AbstractPopupMenuButton::paintEvent(QPaintEvent *event)
 	QPainter painter(this);
 	QStyleOption styleOption;
 	styleOption.initFrom(this);
-	auto buttonRect = event->rect();
-	auto selectionRect = QRect(buttonRect.topLeft().x(), buttonRect.topLeft().y(), iconSize().width() + 3, iconSize().height() + 3);
-	auto hoverRect = QRect(buttonRect.topLeft().x() + 1, buttonRect.topLeft().y() + 1, iconSize().width() + 1, iconSize().height() + 1);
+	auto rect = event->rect();
+	auto scaleRatio = devicePixelRatioF();
+	auto buttonRect = QRectF(rect.x() + (2 / scaleRatio), rect.y() + (2 / scaleRatio), rect.width() - 3, rect.height() - 3);
+
+	if(styleOption.state & QStyle::State_MouseOver)
+	{
+		auto defaultPen = painter.pen();
+		auto defaultBrush = painter.brush();
+		painter.setPen(mHoverColor);
+		painter.setBrush(mHoverColor);
+		painter.drawRect(buttonRect);
+		painter.setPen(defaultPen);
+		painter.setBrush(defaultBrush);
+	}
 
 	painter.drawPixmap(buttonRect.topLeft() + QPointF(2, 2), icon().pixmap(iconSize()));
 
 	if(isChecked()) {
-		painter.drawRect(selectionRect);
-	}
-
-	if(styleOption.state & QStyle::State_MouseOver)
-	{
-		painter.setPen(QColor(QStringLiteral("#add8e6")));
-		painter.drawRect(hoverRect);
+		painter.drawRect(buttonRect);
 	}
 }
 

@@ -24,6 +24,7 @@ namespace kColorPicker {
 ColorButton::ColorButton(const QIcon &icon, const QColor &color) : AbstractPopupMenuButton(icon)
 {
     setCheckable(true);
+    setToolTip(color.name());
     mColor = color;
 }
 

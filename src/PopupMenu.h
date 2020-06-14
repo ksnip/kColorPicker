@@ -57,7 +57,6 @@ private:
 
 private slots:
 	void colorSelected(const QColor &color);
-	QSize getIconSize() const;
 };
 
 } // namespace kColorPicker

@@ -76,15 +76,9 @@ void PopupMenu::generateGrid()
 
 ColorButton *PopupMenu::createButton(const QColor &color)
 {
-	auto iconSize = getIconSize();
-	auto icon = IconCreator::createIcon(color, iconSize);
+	auto icon = IconCreator::createIcon(color, QSize(25, 25));
 	auto button = new ColorButton(icon, color);
 	return button;
-}
-QSize PopupMenu::getIconSize() const
-{ 	auto xScaleFactor = logicalDpiX() / 96.0;
-	auto yScaleFactor = logicalDpiY() / 96.0;
-	return {static_cast<int>(25 * xScaleFactor), static_cast<int>(25 * yScaleFactor) };
 }
 
 void PopupMenu::addColorButton(const QColor &color)

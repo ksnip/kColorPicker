@@ -22,7 +22,7 @@
 namespace kColorPicker {
 
 AbstractPopupMenuButton::AbstractPopupMenuButton(const QIcon &icon) :
-	mHoverColor(QColor(QStringLiteral("#add8e6")))
+	mHoverColor(QColor(QLatin1Literal("#add8e6")))
 {
 	setIcon(icon);
 	setFixedSize(iconSize() + QSize(8, 8));
@@ -36,7 +36,7 @@ void AbstractPopupMenuButton::paintEvent(QPaintEvent *event)
 	styleOption.initFrom(this);
 	auto rect = event->rect();
 	auto scaleRatio = devicePixelRatioF();
-	auto buttonRect = QRectF(rect.x() + (2 / scaleRatio), rect.y() + (2 / scaleRatio), rect.width() - 3, rect.height() - 3);
+	auto buttonRect = QRectF(rect.x() + (2 / scaleRatio), rect.y() + (2 / scaleRatio), rect.width() - 5, rect.height() - 5);
 
 	if(styleOption.state & QStyle::State_MouseOver)
 	{

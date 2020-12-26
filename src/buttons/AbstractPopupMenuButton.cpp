@@ -22,7 +22,7 @@
 namespace kColorPicker {
 
 AbstractPopupMenuButton::AbstractPopupMenuButton(const QIcon &icon) :
-	mHoverColor(QColor(QLatin1Literal("#add8e6")))
+	mHoverColor(QColor(QLatin1String("#add8e6")))
 {
 	setIcon(icon);
 	setFixedSize(iconSize() + QSize(8, 8));

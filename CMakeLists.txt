@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(kColorPicker LANGUAGES CXX VERSION 0.1.4)
+project(kColorPicker LANGUAGES CXX VERSION 0.1.5)
 
 set(QT_MIN_VERSION "5.9.4")
 
@@ -56,7 +56,8 @@ set_target_properties(kColorPicker
 					  ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib
 					  LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib
 					  RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin
-					  SOVERSION ${PROJECT_VERSION}
+		 			  VERSION ${PROJECT_VERSION}
+					  SOVERSION 0
 					  )
 
 install(TARGETS kColorPicker

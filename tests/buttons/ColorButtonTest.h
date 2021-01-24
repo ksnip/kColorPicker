@@ -22,9 +22,11 @@
 
 #include <QtTest>
 
-#include "../../src/buttons/ColorButton.h"
+#include "src/buttons/ColorButton.h"
+#include "src/common/ScaledSizeProvider.h"
 
 using kColorPicker::ColorButton;
+using kColorPicker::ScaledSizeProvider;
 
 class ColorButtonTest : public QObject
 {

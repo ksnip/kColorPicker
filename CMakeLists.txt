@@ -18,6 +18,8 @@ find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Widgets)
 include(GNUInstallDirs)
 include(FeatureSummary)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
 add_subdirectory(src)
 
 if (BUILD_EXAMPLE)
@@ -31,7 +33,6 @@ if (BUILD_TESTS)
 endif (BUILD_TESTS)
 
 include(CMakePackageConfigHelpers)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_library(kColorPicker
 			${KCOLORPICKER_SRCS}

@@ -25,7 +25,7 @@ AbstractPopupMenuButton::AbstractPopupMenuButton(const QIcon &icon) :
 	mHoverColor(QColor(QLatin1String("#add8e6")))
 {
 	setIcon(icon);
-	setFixedSize(iconSize() + ScaledSizeProvider::scaledSize(QSize(8, 8)));
+	setFixedSize(iconSize() + QSize(8, 8));
     connect(this, &QToolButton::clicked, this, &AbstractPopupMenuButton::buttonClicked);
 }
 

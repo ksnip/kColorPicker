@@ -31,6 +31,7 @@ if (BUILD_TESTS)
 endif (BUILD_TESTS)
 
 include(CMakePackageConfigHelpers)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_library(kColorPicker
 			${KCOLORPICKER_SRCS}

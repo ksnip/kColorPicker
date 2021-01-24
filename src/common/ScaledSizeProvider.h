@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Damir Porobic <damir.porobic@gmx.com>
+ * Copyright (C) 2021 Damir Porobic <damir.porobic@gmx.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,35 +17,35 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef KCOLORPICKER_ABSTRACTPOPUPMENUBUTTON_H
-#define KCOLORPICKER_ABSTRACTPOPUPMENUBUTTON_H
+#ifndef KCOLORPICKER_SCALEDSIZEPROVIDER_H
+#define KCOLORPICKER_SCALEDSIZEPROVIDER_H
 
-#include <QToolButton>
-#include <QPainter>
-#include <QPaintEvent>
-#include <QStyleOption>
+#include <QSize>
 
-#include "src/common/ScaledSizeProvider.h"
+#if defined(__linux__)
+#include <QApplication>
+#include <QScreen>
+#endif
 
 namespace kColorPicker {
 
-class AbstractPopupMenuButton : public QToolButton
+class ScaledSizeProvider
 {
-Q_OBJECT
 public:
-	explicit AbstractPopupMenuButton(const QIcon &icon);
-
-signals:
-	void colorSelected(const QColor &color) const;
-
-protected slots:
-	void paintEvent(QPaintEvent *event) override;
-	virtual void buttonClicked() = 0;
+	static QSize scaledSize(const QSize &size);
 
 private:
-	QColor mHoverColor;
+	static qreal scaleFactor();
+	static qreal getScaleFactor();
+
+#if defined(__linux__)
+	static bool isGnomeEnvironment();
+#endif
+
+	ScaledSizeProvider() = default;
+	~ScaledSizeProvider() = default;
 };
 
 } // namespace kColorPicker
 
-#endif //KCOLORPICKER_ABSTRACTPOPUPMENUBUTTON_H
+#endif //KCOLORPICKER_SCALEDSIZEPROVIDER_H

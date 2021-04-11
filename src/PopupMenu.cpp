@@ -21,14 +21,17 @@
 
 namespace kColorPicker {
 
-PopupMenu::PopupMenu()
+PopupMenu::PopupMenu() :
+	mButtonGroup(new QButtonGroup()),
+	mLayout(new QGridLayout()),
+	mColorDialogButton(new ColorDialogButton(QIcon(QLatin1String(":/icons/ellipsis"))))
 {
-	mButtonGroup = new QButtonGroup();
-	mLayout = new QGridLayout();
+
 	mLayout->setSpacing(0);
 	mLayout->setMargin(5);
 	setLayout(mLayout);
-	addColorDialogButton();
+
+	connect(mColorDialogButton, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
 }
 
 PopupMenu::~PopupMenu()
@@ -114,11 +117,9 @@ void PopupMenu::colorSelected(const QColor &color)
 	hide();
 }
 
-void PopupMenu::addColorDialogButton()
+QSize PopupMenu::sizeHint() const
 {
-	auto icon = QIcon(QLatin1String(":/icons/ellipsis"));
-	mColorDialogButton = new ColorDialogButton(icon);
-	connect(mColorDialogButton, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
+	return mLayout->sizeHint();
 }
 
 } // namespace kColorPicker

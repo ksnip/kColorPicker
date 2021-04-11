@@ -38,6 +38,7 @@ public:
 	~PopupMenu() override;
 	void addColor(const QColor &color);
 	void selectColor(const QColor &color);
+	QSize sizeHint() const;
 
 signals:
 	void colorChanged(const QColor &color) const;
@@ -49,9 +50,8 @@ private:
 	ColorDialogButton *mColorDialogButton;
 
 	void generateGrid();
-	ColorButton *createButton(const QColor &color);
+	static ColorButton *createButton(const QColor &color);
 	void addColorButton(const QColor &color);
-	void addColorDialogButton();
 	void clearGrid();
 	bool isColorInGrid(const QColor &color);
 

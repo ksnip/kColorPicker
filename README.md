@@ -1,4 +1,4 @@
-# kColorPicker [![Build Status](https://travis-ci.org/ksnip/kColorPicker.svg?branch=master)](https://travis-ci.org/ksnip/kColorPicker)
+# kColorPicker ![Build Status](https://github.com/ksnip/kColorPicker/actions/workflows/build.yml/badge.svg)
 QToolButton with color popup menu with lets you select a color. The popup features a color dialog button which can be used to add custom colors to the popup menu.
 
 Version 0.1.6

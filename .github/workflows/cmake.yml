@@ -20,8 +20,9 @@ jobs:
       run: sudo apt-get install qtbase5-dev
 
     - name: Build
-    - run: mkdir build && cd build
-    - run: cmake .. -DBUILD_TESTS=ON && make VERBOSE=1
+      run: |
+        mkdir build && cd build
+        cmake .. -DBUILD_TESTS=ON && make VERBOSE=1
 
     - name: Test
       working-directory: ${{github.workspace}}/build

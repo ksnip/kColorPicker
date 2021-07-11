@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Setup
-      run: sudo apt-get install qtbase5-dev
+      run: sudo apt-get install qtbase5-dev xvfb
 
     - name: Build
       run: |
@@ -26,4 +26,4 @@ jobs:
 
     - name: Test
       working-directory: ${{github.workspace}}/build
-      run: make test CTEST_OUTPUT_ON_FAILURE=1
+      run: xvfb-run make test CTEST_OUTPUT_ON_FAILURE=1

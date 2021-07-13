@@ -1,4 +1,4 @@
-# kColorPicker ![Build Status](https://github.com/ksnip/kColorPicker/actions/workflows/build.yml/badge.svg)
+# kColorPicker [![Build Status][github-badge]][github-url]
 QToolButton with color popup menu with lets you select a color. The popup features a color dialog button which can be used to add custom colors to the popup menu.
 
 Version 0.1.6
@@ -34,3 +34,7 @@ only build as static library.
 
 2. Link the library with your application  
     `target_link_libraries(myApp kColorPicker)`  
+
+
+[github-badge]:        https://github.com/ksnip/kColorPicker/actions/workflows/build.yml/badge.svg
+[github-url]:          https://github.com/ksnip/kColorPicker/actions

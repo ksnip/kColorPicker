@@ -30,11 +30,14 @@ class ColorDialogButton : public AbstractPopupMenuButton
 {
 Q_OBJECT
 public:
-	explicit ColorDialogButton(const QIcon &icon);
+	explicit ColorDialogButton(const QIcon &icon, bool showAlphaChannel);
 
 protected:
 	void buttonClicked() override;
 
+private:
+	bool mShowAlphaChannel;
+	QFlags<QColorDialog::ColorDialogOption> getColorDialogOptions() const;
 };
 
 } // namespace kColorPicker

@@ -21,12 +21,12 @@
 
 namespace kColorPicker {
 
-PopupMenu::PopupMenu() :
-	mButtonGroup(new QButtonGroup()),
-	mLayout(new QGridLayout()),
-	mColorDialogButton(new ColorDialogButton(QIcon(QLatin1String(":/icons/ellipsis"))))
+PopupMenu::PopupMenu(bool showAlphaChannel, QWidget *parent) :
+	QMenu(parent),
+	mButtonGroup(new QButtonGroup(this)),
+	mLayout(new QGridLayout(this)),
+	mColorDialogButton(new ColorDialogButton(QIcon(QLatin1String(":/icons/ellipsis")), showAlphaChannel))
 {
-
 	mLayout->setSpacing(0);
 	mLayout->setMargin(5);
 	setLayout(mLayout);
@@ -36,7 +36,7 @@ PopupMenu::PopupMenu() :
 
 PopupMenu::~PopupMenu()
 {
-	delete mButtonGroup;
+	qDeleteAll(mColorButtons);
 	delete mColorDialogButton;
 }
 
@@ -45,6 +45,20 @@ void PopupMenu::addColor(const QColor &color)
 	if (!isColorInGrid(color)) {
 		addColorButton(color);
 	}
+}
+
+void PopupMenu::removeColors()
+{
+	for (auto button : mColorButtons) {
+		mButtonGroup->removeButton(button);
+		mLayout->removeWidget(button);
+		disconnect(button, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);
+	}
+
+	qDeleteAll(mColorButtons);
+	mColorButtons.clear();
+
+	generateGrid();
 }
 
 void PopupMenu::selectColor(const QColor &color)

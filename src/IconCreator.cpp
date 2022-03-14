@@ -23,14 +23,41 @@ namespace kColorPicker {
 
 QIcon IconCreator::createIcon(const QColor &color, const QSize &size)
 {
-    QPixmap pixmap(size);
-    pixmap.fill(color);
-    QPainter painter(&pixmap);
+	auto background = getBackgroundBrush(size);
+
+	QPixmap pixmap(size);
+	QPainter painter(&pixmap);
+
+	// Paint background
+	painter.setPen(Qt::NoPen);
+	painter.setBrush(background);
+	painter.drawRect(0, 0, size.width(), size.height());
+
+	// Paint color
+	painter.setBrush(color);
+	painter.drawRect(0, 0, size.width(), size.height());
+
+	// Paint border
     auto penWidth = painter.pen().width();
     painter.setPen(QColor(Qt::gray));
     painter.drawRect(0, 0, size.width() - penWidth, size.height() - penWidth);
 
-    return QIcon(pixmap);
+    return { pixmap };
+}
+
+QImage IconCreator::getBackgroundBrush(const QSize &size)
+{
+	auto halfWidth = size.width() / 2;
+	auto halfHeight = size.height() / 2;
+	auto background = QImage(size, QImage::Format_ARGB32_Premultiplied);
+	background.fill(Qt::white);
+	QPainter painter(&background);
+	painter.setPen(Qt::NoPen);
+	painter.setBrush(Qt::gray);
+	painter.drawRect(0, 0, halfWidth, halfHeight);
+	painter.drawRect(halfWidth, halfHeight, size.width(), size.height());
+
+	return background;
 }
 
 } // namespace kColorPicker

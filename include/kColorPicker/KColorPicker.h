@@ -37,11 +37,12 @@ Q_OBJECT
 	Q_DECLARE_PRIVATE(KColorPicker)
 
 public:
-	explicit KColorPicker();
+	explicit KColorPicker(bool showAlphaChannel = false, QWidget *parent = nullptr);
 	~KColorPicker() override;
 	void setFixedSize(const QSize &size);
 	void setFixedSize(int width, int height);
 	QColor color() const;
+	void resetColors(bool showAlphaChannel = false);
 
 public Q_SLOTS:
 	void setColor(const QColor &color);

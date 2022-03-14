@@ -36,6 +36,8 @@ protected:
 
 private:
 	QColor mColor;
+
+	static QString getColorName(const QColor &color);
 };
 
 } // namespace kColorPicker

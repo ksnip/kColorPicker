@@ -24,7 +24,7 @@ namespace kColorPicker {
 ColorButton::ColorButton(const QIcon &icon, const QColor &color) : AbstractPopupMenuButton(icon)
 {
     setCheckable(true);
-    setToolTip(color.name());
+    setToolTip(getColorName(color));
     mColor = color;
 }
 
@@ -36,6 +36,13 @@ QColor ColorButton::color() const
 void ColorButton::buttonClicked()
 {
     emit colorSelected(mColor);
+}
+
+QString ColorButton::getColorName(const QColor &color)
+{
+	auto format = color.alpha() < 255 ? QColor::HexArgb : QColor::HexRgb;
+
+	return color.name(format);
 }
 
 } // namespace kColorPicker

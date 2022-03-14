@@ -34,9 +34,10 @@ class PopupMenu : public QMenu
 {
 Q_OBJECT
 public:
-	PopupMenu();
+	PopupMenu(bool showAlphaChannel, QWidget *parent);
 	~PopupMenu() override;
 	void addColor(const QColor &color);
+	void removeColors();
 	void selectColor(const QColor &color);
 	QSize sizeHint() const;
 
@@ -60,4 +61,5 @@ private slots:
 };
 
 } // namespace kColorPicker
+
 #endif //KCOLORPICKER_POPUPMENU_H

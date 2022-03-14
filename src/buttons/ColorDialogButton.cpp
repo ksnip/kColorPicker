@@ -21,15 +21,22 @@
 
 namespace kColorPicker {
 
-ColorDialogButton::ColorDialogButton(const QIcon &icon) : AbstractPopupMenuButton(icon)
+ColorDialogButton::ColorDialogButton(const QIcon &icon, bool showAlphaChannel) :
+	AbstractPopupMenuButton(icon),
+	mShowAlphaChannel(showAlphaChannel)
 {
     setCheckable(false);
 }
 
 void ColorDialogButton::buttonClicked()
 {
-    auto color = QColorDialog::getColor();
+    auto color = QColorDialog::getColor(Qt::white, this, QString(), getColorDialogOptions());
     emit colorSelected(color);
+}
+
+QFlags<QColorDialog::ColorDialogOption> ColorDialogButton::getColorDialogOptions() const
+{
+	return mShowAlphaChannel ? QColorDialog::ShowAlphaChannel : QFlags<QColorDialog::ColorDialogOption>();
 }
 
 } // namespace kColorPicker

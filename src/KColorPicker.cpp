@@ -35,16 +35,19 @@ class KColorPickerPrivate
 
 	Q_DECLARE_PUBLIC(KColorPicker)
 
-	explicit KColorPickerPrivate(KColorPicker *kColorPicker);
+	explicit KColorPickerPrivate(KColorPicker *kColorPicker, bool showAlphaChannel = false, QWidget *parent = nullptr);
 
 	KColorPicker *const q_ptr;
 	QSize mIconSize;
-	PopupMenu mPopupMenu;
+	PopupMenu *mPopupMenu;
 	QColor mSelectedColor;
 };
 
-KColorPicker::KColorPicker() : d_ptr(new KColorPickerPrivate(this))
-{}
+KColorPicker::KColorPicker(bool showAlphaChannel, QWidget *parent) : d_ptr(new KColorPickerPrivate(this, showAlphaChannel, parent))
+{
+	// Default Colors
+	resetColors(showAlphaChannel);
+}
 
 KColorPicker::~KColorPicker()
 {}
@@ -54,7 +57,7 @@ void KColorPicker::setColor(const QColor &color)
 	Q_D(KColorPicker);
 	d->mSelectedColor = color;
 	setColorIcon(color);
-	d->mPopupMenu.selectColor(color);
+	d->mPopupMenu->selectColor(color);
 }
 
 void KColorPicker::colorSelected(const QColor &color)
@@ -87,6 +90,28 @@ QColor KColorPicker::color() const
 	return d->mSelectedColor;
 }
 
+void KColorPicker::resetColors(bool showAlphaChannel)
+{
+	Q_D(const KColorPicker);
+	d->mPopupMenu->removeColors();
+
+	d->mPopupMenu->addColor(QColor(Qt::red));
+	d->mPopupMenu->addColor(QColor(Qt::green));
+	d->mPopupMenu->addColor(QColor(Qt::blue));
+	d->mPopupMenu->addColor(QColor(Qt::yellow));
+	d->mPopupMenu->addColor(QColor(Qt::magenta));
+	d->mPopupMenu->addColor(QColor(Qt::cyan));
+	d->mPopupMenu->addColor(QColor(Qt::white));
+	d->mPopupMenu->addColor(QColor(Qt::black));
+
+	if(showAlphaChannel) {
+		d->mPopupMenu->addColor(QColor(0, 255, 255, 100));
+		d->mPopupMenu->addColor(QColor(255, 0, 255, 100));
+		d->mPopupMenu->addColor(QColor(255, 255, 0, 100));
+		d->mPopupMenu->addColor(QColor(255, 255, 255, 100));
+	}
+}
+
 void KColorPicker::setIconSize(const QSize &size)
 {
 	Q_D(KColorPicker);
@@ -107,25 +132,16 @@ void KColorPicker::setColorIcon(const QColor &color)
 // KColorPickerPrivate
 //
 
-KColorPickerPrivate::KColorPickerPrivate(KColorPicker *kColorPicker) : q_ptr(kColorPicker)
+KColorPickerPrivate::KColorPickerPrivate(KColorPicker *kColorPicker, bool showAlphaChannel, QWidget *parent) :
+	q_ptr(kColorPicker),
+	mPopupMenu(new PopupMenu(showAlphaChannel, parent))
 {
 	initResource();
 
 	mIconSize = QSize(25, 25);
 	kColorPicker->setPopupMode(QToolButton::InstantPopup);
-	kColorPicker->setMenu(&mPopupMenu);
-	kColorPicker->connect(&mPopupMenu, &PopupMenu::colorChanged, kColorPicker, &KColorPicker::colorSelected);
-
-	// Default Colors
-	mPopupMenu.addColor(QColor(Qt::red));
-	mPopupMenu.addColor(QColor(Qt::green));
-	mPopupMenu.addColor(QColor(Qt::blue));
-	mPopupMenu.addColor(QColor(Qt::yellow));
-	mPopupMenu.addColor(QColor(Qt::magenta));
-	mPopupMenu.addColor(QColor(Qt::cyan));
-	mPopupMenu.addColor(QColor(Qt::white));
-	mPopupMenu.addColor(QColor(Qt::black));
-
+	kColorPicker->setMenu(mPopupMenu);
+	kColorPicker->connect(mPopupMenu, &PopupMenu::colorChanged, kColorPicker, &KColorPicker::colorSelected);
 }
 
 } // namespace kColorPicker

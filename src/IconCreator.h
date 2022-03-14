@@ -23,6 +23,7 @@
 #include <QIcon>
 #include <QColor>
 #include <QPainter>
+#include <QImage>
 
 namespace kColorPicker {
 
@@ -32,6 +33,7 @@ public:
 	explicit IconCreator() = delete;
 	~IconCreator() = delete;
 	static QIcon createIcon(const QColor &color, const QSize &size);
+	static QImage getBackgroundBrush(const QSize &size);
 };
 
 } // namespace kColorPicker

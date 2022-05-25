@@ -13,7 +13,15 @@ set(CMAKE_AUTORCC ON)
 option(BUILD_TESTS "Build Unit Tests" OFF)
 option(BUILD_EXAMPLE "Build Example Application" ON)
 
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Widgets)
+option(BUILD_WITH_QT6 "Build with Qt6" OFF)
+if(BUILD_WITH_QT6)
+    set(QT_MAJOR_VERSION 6)
+    set(CMAKE_CXX_STANDARD 17)
+else()
+    set(QT_MAJOR_VERSION 5)
+endif()
+
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED Widgets)
 
 include(GNUInstallDirs)
 include(FeatureSummary)
@@ -27,7 +35,7 @@ if (BUILD_EXAMPLE)
 endif (BUILD_EXAMPLE)
 
 if (BUILD_TESTS)
-    find_package(Qt5 ${QT_MIN_VERSION} REQUIRED Test)
+    find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED Test)
     enable_testing()
     add_subdirectory(tests)
 endif (BUILD_TESTS)
@@ -49,7 +57,7 @@ target_include_directories(kColorPicker
 						   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 						   )
 
-target_link_libraries(kColorPicker PUBLIC Qt5::Widgets)
+target_link_libraries(kColorPicker PUBLIC Qt${QT_MAJOR_VERSION}::Widgets)
 
 target_compile_definitions(kColorPicker PRIVATE KIMAGEANNOTATOR_LIB)
 

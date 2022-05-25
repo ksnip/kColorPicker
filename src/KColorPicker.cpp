@@ -17,7 +17,7 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <kColorPicker/KColorPicker.h>
+#include "kColorPicker/KColorPicker.h"
 
 #include "IconCreator.h"
 #include "PopupMenu.h"

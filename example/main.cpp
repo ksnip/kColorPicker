@@ -19,7 +19,7 @@
 
 #include <QApplication>
 #include <QVBoxLayout>
-#include <kColorPicker/KColorPicker.h>
+#include "kColorPicker/KColorPicker.h"
 
 using kColorPicker::KColorPicker;
 

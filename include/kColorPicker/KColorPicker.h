@@ -24,7 +24,7 @@
 #include <QColor>
 #include <QList>
 
-#include <kColorPicker/KColorPickerExport.h>
+#include "kColorPicker/KColorPickerExport.h"
 
 namespace kColorPicker {
 

@@ -14,6 +14,7 @@ Version 0.2.0
     `$ mkdir build && cd build`  
 4. Create the makefile and build the project:  
     `$ cmake .. && make`  
+    to build with Qt6, pass `-DBUILD_WITH_QT6=true` to the `cmake` command  
 5. Install shared library (not required when only using the example):  
     `$ sudo make install`  
 6. Run the example application:  
@@ -30,10 +31,16 @@ only build as static library.
 
 1. Let cmake find the shared library, optionally with version  
     `set(KCOLORPICKER_MIN_VERSION "0.x.x")`  
-    `find_package(kColorPicker ${KCOLORPICKER_MIN_VERSION} REQUIRED)`  
+    to build with Qt5:  
+    `find_package(kColorPicker-Qt5 ${KCOLORPICKER_MIN_VERSION} REQUIRED)`  
+    to build with Qt6:  
+    `find_package(kColorPicker-Qt6 ${KCOLORPICKER_MIN_VERSION} REQUIRED)`  
 
 2. Link the library with your application  
-    `target_link_libraries(myApp kColorPicker)`  
+    if you built with Qt5:  
+    `target_link_libraries(myApp kColorPicker-Qt5)`  
+    if you built with Qt6:  
+    `target_link_libraries(myApp kColorPicker-Qt6)`  
 
 
 [github-badge]:        https://github.com/ksnip/kColorPicker/actions/workflows/build.yml/badge.svg

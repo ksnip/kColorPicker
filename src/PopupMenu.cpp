@@ -28,7 +28,7 @@ PopupMenu::PopupMenu(bool showAlphaChannel, QWidget *parent) :
 	mColorDialogButton(new ColorDialogButton(QIcon(QLatin1String(":/icons/ellipsis")), showAlphaChannel))
 {
 	mLayout->setSpacing(0);
-	mLayout->setMargin(5);
+	mLayout->setContentsMargins(5, 5, 5, 5);
 	setLayout(mLayout);
 
 	connect(mColorDialogButton, &AbstractPopupMenuButton::colorSelected, this, &PopupMenu::colorSelected);

@@ -36,11 +36,8 @@ only build as static library.
     to build with Qt6:  
     `find_package(kColorPicker-Qt6 ${KCOLORPICKER_MIN_VERSION} REQUIRED)`  
 
-2. Link the library with your application  
-    if you built with Qt5:  
-    `target_link_libraries(myApp kColorPicker-Qt5)`  
-    if you built with Qt6:  
-    `target_link_libraries(myApp kColorPicker-Qt6)`  
+2. Link the library with your application 
+    `target_link_libraries(myApp kColorPicker)`  
 
 
 [github-badge]:        https://github.com/ksnip/kColorPicker/actions/workflows/build.yml/badge.svg

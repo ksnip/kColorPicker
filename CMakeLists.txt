@@ -3,7 +3,7 @@ project(kColorPicker LANGUAGES CXX VERSION 0.3.0)
 
 set(QT_MIN_VERSION "5.9.4")
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -15,12 +15,9 @@ option(BUILD_EXAMPLE "Build Example Application" ON)
 
 option(BUILD_WITH_QT6 "Build with Qt6" OFF)
 if(BUILD_WITH_QT6)
-    set(CMAKE_CXX_STANDARD 17)
     set(QT_MAJOR_VERSION 6)
-    set(kColorPicker_LIB_NAME "kColorPicker-Qt6")
 else()
     set(QT_MAJOR_VERSION 5)
-    set(kColorPicker_LIB_NAME "kColorPicker-Qt5")
 endif()
 
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED Widgets)
@@ -44,26 +41,24 @@ endif (BUILD_TESTS)
 
 include(CMakePackageConfigHelpers)
 
-add_library(${kColorPicker_LIB_NAME}
+add_library(kColorPicker
 			${KCOLORPICKER_SRCS}
 			${CMAKE_CURRENT_SOURCE_DIR}/include/kColorPicker/KColorPicker.h
 			${CMAKE_CURRENT_SOURCE_DIR}/icons/kColorPicker_icons.qrc
 			)
 
-#add_library(kColorPicker::kColorPicker ALIAS kColorPicker)
-
-target_include_directories(${kColorPicker_LIB_NAME}
+target_include_directories(kColorPicker
 						   PUBLIC
 						   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 						   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
-						   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>/${kColorPicker_LIB_NAME}
+						   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/kColorPicker-Qt${QT_MAJOR_VERSION}>
 						   )
 
-target_link_libraries(${kColorPicker_LIB_NAME} PUBLIC Qt${QT_MAJOR_VERSION}::Widgets)
+target_link_libraries(kColorPicker PUBLIC Qt${QT_MAJOR_VERSION}::Widgets)
 
-target_compile_definitions(${kColorPicker_LIB_NAME} PRIVATE KIMAGEANNOTATOR_LIB)
+target_compile_definitions(kColorPicker PRIVATE KIMAGEANNOTATOR_LIB)
 
-set_target_properties(${kColorPicker_LIB_NAME}
+set_target_properties(kColorPicker
 					  PROPERTIES
 					  ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib
 					  LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib
@@ -72,43 +67,43 @@ set_target_properties(${kColorPicker_LIB_NAME}
 					  SOVERSION 0
 					  )
 
-install(TARGETS ${kColorPicker_LIB_NAME}
-		EXPORT ${kColorPicker_LIB_NAME}-targets
+install(TARGETS kColorPicker
+		EXPORT kColorPicker-targets
 		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 		)
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/kColorPicker
-		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${kColorPicker_LIB_NAME}
+		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/kColorPicker-Qt${QT_MAJOR_VERSION}
 		)
 
-configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${kColorPicker_LIB_NAME}Config.cmake.in
-                              ${CMAKE_CURRENT_BINARY_DIR}/cmake/${kColorPicker_LIB_NAME}Config.cmake
-                              INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${kColorPicker_LIB_NAME}
+configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/kColorPickerConfig.cmake.in
+                              ${CMAKE_CURRENT_BINARY_DIR}/cmake/kColorPicker-Qt${QT_MAJOR_VERSION}Config.cmake
+                              INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kColorPicker-Qt${QT_MAJOR_VERSION}
                               )
 
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/cmake/${kColorPicker_LIB_NAME}Config-version.cmake
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/cmake/kColorPicker-Qt${QT_MAJOR_VERSION}Config-version.cmake
                                  VERSION ${PROJECT_VERSION}
                                  COMPATIBILITY AnyNewerVersion
                                  )
 
 install(FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/cmake/${kColorPicker_LIB_NAME}Config.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/cmake/${kColorPicker_LIB_NAME}Config-version.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${kColorPicker_LIB_NAME}
+        ${CMAKE_CURRENT_BINARY_DIR}/cmake/kColorPicker-Qt${QT_MAJOR_VERSION}Config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/cmake/kColorPicker-Qt${QT_MAJOR_VERSION}Config-version.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kColorPicker-Qt${QT_MAJOR_VERSION}
         )
 
 
-export(EXPORT ${kColorPicker_LIB_NAME}-targets
-       FILE ${CMAKE_CURRENT_BINARY_DIR}/cmake/${kColorPicker_LIB_NAME}-targets.cmake
+export(EXPORT kColorPicker-targets
+       FILE ${CMAKE_CURRENT_BINARY_DIR}/cmake/kColorPicker-Qt${QT_MAJOR_VERSION}-targets.cmake
        NAMESPACE kColorPicker::
        )
 
-install(EXPORT ${kColorPicker_LIB_NAME}-targets
-        FILE ${kColorPicker_LIB_NAME}-targets.cmake
+install(EXPORT kColorPicker-targets
+        FILE kColorPicker-targets.cmake
         NAMESPACE kColorPicker::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${kColorPicker_LIB_NAME}
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kColorPicker-Qt${QT_MAJOR_VERSION}
         )
         
 # uninstall target

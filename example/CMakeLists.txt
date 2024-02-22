@@ -1,3 +1,3 @@
 add_executable(kColorPicker-example main.cpp)
 
-target_link_libraries(kColorPicker-example ${kColorPicker_LIB_NAME})
+target_link_libraries(kColorPicker-example kColorPicker)

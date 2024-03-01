@@ -4,7 +4,7 @@ set(UNITTEST_SRC
 
 add_library(KCOLORPICKER_STATIC STATIC ${KCOLORPICKER_SRCS})
 
-target_link_libraries(KCOLORPICKER_STATIC Qt${QT_MAJOR_VERSION}::Widgets ${kColorPicker_LIB_NAME})
+target_link_libraries(KCOLORPICKER_STATIC Qt${QT_MAJOR_VERSION}::Widgets kColorPicker)
 
 foreach (UnitTest ${UNITTEST_SRC})
     get_filename_component(UnitTestName ${UnitTest} NAME_WE)

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(kColorPicker LANGUAGES CXX VERSION 0.3.0)
+project(kColorPicker LANGUAGES CXX VERSION 0.3.1)
 
 set(QT_MIN_VERSION 5.15.2)
 
